@@ -1,13 +1,14 @@
 package com.example.finalproject
 
-
-
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
+import android.graphics.Rect
+import android.view.View
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -31,8 +32,6 @@ class MainActivity : AppCompatActivity() {
         btnPrevious = findViewById(R.id.btnPrevious)
         btnNext = findViewById(R.id.btnNext)
 
-        updateCalendar()
-
         btnPrevious.setOnClickListener {
             currentDate = currentDate.minusMonths(1)
             updateCalendar()
@@ -42,6 +41,11 @@ class MainActivity : AppCompatActivity() {
             currentDate = currentDate.plusMonths(1)
             updateCalendar()
         }
+
+        // 設置 GridLayoutManager 和無間距的 ItemDecoration
+        calendarRecyclerView.layoutManager = GridLayoutManager(this, 7) // 每行 7 列
+        calendarRecyclerView.addItemDecoration(SpacingItemDecoration(0)) // 無間距
+        updateCalendar()
     }
 
     private fun updateCalendar() {
@@ -49,7 +53,6 @@ class MainActivity : AppCompatActivity() {
         tvMonthYear.text = currentDate.format(DateTimeFormatter.ofPattern("MMMM yyyy"))
 
         calendarAdapter = CalendarAdapter(daysInMonth)
-        calendarRecyclerView.layoutManager = GridLayoutManager(this, 7)
         calendarRecyclerView.adapter = calendarAdapter
     }
 
@@ -61,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         val daysList = mutableListOf<String>()
 
         for (i in 1..firstDay) {
-            daysList.add("")
+            daysList.add("") // 填充空白格
         }
 
         for (day in 1..daysInMonth) {
@@ -69,5 +72,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         return daysList
+    }
+
+    // 自定義無間距的 ItemDecoration
+    class SpacingItemDecoration(private val spacing: Int) : ItemDecoration() {
+        override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+            outRect.set(spacing, spacing, spacing, spacing)
+        }
     }
 }
