@@ -1,14 +1,13 @@
 package com.example.finalproject
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ItemDecoration
-import android.graphics.Rect
-import android.view.View
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -19,8 +18,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvMonthYear: TextView
     private lateinit var btnPrevious: ImageButton
     private lateinit var btnNext: ImageButton
+    private lateinit var btnAddTodo: FloatingActionButton
 
-    private lateinit var calendarAdapter: CalendarAdapter
     private var currentDate: LocalDate = LocalDate.now()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         tvMonthYear = findViewById(R.id.tvMonthYear)
         btnPrevious = findViewById(R.id.btnPrevious)
         btnNext = findViewById(R.id.btnNext)
+        btnAddTodo = findViewById(R.id.btnAddTodo)
 
         btnPrevious.setOnClickListener {
             currentDate = currentDate.minusMonths(1)
@@ -42,42 +42,39 @@ class MainActivity : AppCompatActivity() {
             updateCalendar()
         }
 
-        // 設置 GridLayoutManager 和無間距的 ItemDecoration
-        calendarRecyclerView.layoutManager = GridLayoutManager(this, 7) // 每行 7 列
-        calendarRecyclerView.addItemDecoration(SpacingItemDecoration(0)) // 無間距
+        btnAddTodo.setOnClickListener {
+            val intent = Intent(this, AddTodoActivity::class.java)
+            startActivity(intent)
+        }
+
+        // 設置 RecyclerView
+        calendarRecyclerView.layoutManager = GridLayoutManager(this, 7)
         updateCalendar()
     }
 
     private fun updateCalendar() {
         val daysInMonth = getDaysInMonth(currentDate)
         tvMonthYear.text = currentDate.format(DateTimeFormatter.ofPattern("MMMM yyyy"))
-
-        calendarAdapter = CalendarAdapter(daysInMonth)
-        calendarRecyclerView.adapter = calendarAdapter
+        calendarRecyclerView.adapter = CalendarAdapter(daysInMonth)
     }
 
     private fun getDaysInMonth(date: LocalDate): List<String> {
         val yearMonth = YearMonth.from(date)
         val daysInMonth = yearMonth.lengthOfMonth()
-        val firstDay = yearMonth.atDay(1).dayOfWeek.value % 7
+        val firstDayOfWeek = yearMonth.atDay(1).dayOfWeek.value % 7
 
         val daysList = mutableListOf<String>()
 
-        for (i in 1..firstDay) {
-            daysList.add("") // 填充空白格
+        // 填充空白日期
+        for (i in 1..firstDayOfWeek) {
+            daysList.add("")
         }
 
+        // 填充有效日期
         for (day in 1..daysInMonth) {
             daysList.add(day.toString())
         }
 
         return daysList
-    }
-
-    // 自定義無間距的 ItemDecoration
-    class SpacingItemDecoration(private val spacing: Int) : ItemDecoration() {
-        override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-            outRect.set(spacing, spacing, spacing, spacing)
-        }
     }
 }
