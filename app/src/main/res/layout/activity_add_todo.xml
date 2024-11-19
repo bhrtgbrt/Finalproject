@@ -7,19 +7,57 @@
     android:layout_height="match_parent"
     tools:context=".AddTodoActivity">
 
-    <!-- 其他元件可以放置在這裡 -->
+    <!-- 輸入文字框 -->
+    <EditText
+        android:id="@+id/etTodoInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="請輸入待辦事項"
+        android:padding="16dp"
+        android:backgroundTint="@color/teal_200"
+        android:inputType="text"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp" />
 
-    <!-- 左下角返回主畫面按鈕 -->
+    <!-- 日期選擇 -->
+    <TextView
+        android:id="@+id/tvDatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="選擇日期"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/etTodoInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <!-- 返回主畫面按鈕 -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnBackToMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:contentDescription="Back to Main Screen"
-        android:src="@drawable/ic_arrow_back"
+        android:backgroundTint="@color/teal_200"
+        app:srcCompat="@drawable/ic_arrow_back"
+        android:contentDescription="返回主畫面"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:tint="@android:color/white"
-        app:backgroundTint="@color/blue" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- 新增事項按鈕 -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAddTodo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/teal_200"
+        app:srcCompat="@drawable/ic_add"
+        android:contentDescription="新增待辦事項"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

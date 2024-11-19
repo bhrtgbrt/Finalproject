@@ -2,79 +2,74 @@ package com.example.finalproject
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageButton
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import java.time.LocalDate
-import java.time.YearMonth
-import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var calendarRecyclerView: RecyclerView
-    private lateinit var tvMonthYear: TextView
-    private lateinit var btnPrevious: ImageButton
-    private lateinit var btnNext: ImageButton
-    private lateinit var btnAddTodo: FloatingActionButton
+    // 用來存儲待辦事項的清單
+    private val todoList = mutableListOf<String>()
+    private lateinit var todoAdapter: ArrayAdapter<String>
 
-    private var currentDate: LocalDate = LocalDate.now()
+    // 用來顯示當前的月份和年份
+    private lateinit var monthYearTextView: TextView
+
+    companion object {
+        private const val ADD_TODO_REQUEST_CODE = 1 // 用於辨識 AddTodoActivity 的返回結果
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        calendarRecyclerView = findViewById(R.id.calendarRecyclerView)
-        tvMonthYear = findViewById(R.id.tvMonthYear)
-        btnPrevious = findViewById(R.id.btnPrevious)
-        btnNext = findViewById(R.id.btnNext)
-        btnAddTodo = findViewById(R.id.btnAddTodo)
+        // 設定月份年份的文字元件
+        monthYearTextView = findViewById(R.id.monthYearTextView)
+        monthYearTextView.text = "November 2024" // 預設月份年份
 
-        btnPrevious.setOnClickListener {
-            currentDate = currentDate.minusMonths(1)
-            updateCalendar()
+        // 初始化 ListView 和 Adapter
+        val listView: ListView = findViewById(R.id.listView)
+        todoAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, todoList)
+        listView.adapter = todoAdapter
+
+        // 左箭頭按鈕切換到前一個月
+        val leftArrowButton: FloatingActionButton = findViewById(R.id.leftArrowButton)
+        leftArrowButton.setOnClickListener {
+            // TODO: 加入邏輯切換到前一個月
         }
 
-        btnNext.setOnClickListener {
-            currentDate = currentDate.plusMonths(1)
-            updateCalendar()
+        // 右箭頭按鈕切換到下一個月
+        val rightArrowButton: FloatingActionButton = findViewById(R.id.rightArrowButton)
+        rightArrowButton.setOnClickListener {
+            // TODO: 加入邏輯切換到下一個月
         }
 
-        btnAddTodo.setOnClickListener {
+        // 浮動按鈕點擊事件，跳轉到 AddTodoActivity
+        val fab: FloatingActionButton = findViewById(R.id.fab)
+        fab.setOnClickListener {
             val intent = Intent(this, AddTodoActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, ADD_TODO_REQUEST_CODE)
         }
-
-        // 設置 RecyclerView
-        calendarRecyclerView.layoutManager = GridLayoutManager(this, 7)
-        updateCalendar()
     }
 
-    private fun updateCalendar() {
-        val daysInMonth = getDaysInMonth(currentDate)
-        tvMonthYear.text = currentDate.format(DateTimeFormatter.ofPattern("MMMM yyyy"))
-        calendarRecyclerView.adapter = CalendarAdapter(daysInMonth)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // 處理來自 AddTodoActivity 的返回結果
+        if (requestCode == ADD_TODO_REQUEST_CODE && resultCode == RESULT_OK) {
+            val todoText = data?.getStringExtra("TODO_TEXT") ?: return
+            val todoDate = data?.getStringExtra("TODO_DATE") ?: return
+
+            // 新增到清單並更新畫面
+            addTodoToList(todoDate, todoText)
+        }
     }
 
-    private fun getDaysInMonth(date: LocalDate): List<String> {
-        val yearMonth = YearMonth.from(date)
-        val daysInMonth = yearMonth.lengthOfMonth()
-        val firstDayOfWeek = yearMonth.atDay(1).dayOfWeek.value % 7
-
-        val daysList = mutableListOf<String>()
-
-        // 填充空白日期
-        for (i in 1..firstDayOfWeek) {
-            daysList.add("")
-        }
-
-        // 填充有效日期
-        for (day in 1..daysInMonth) {
-            daysList.add(day.toString())
-        }
-
-        return daysList
+    // 新增待辦事項到清單
+    private fun addTodoToList(date: String, todoText: String) {
+        todoList.add("$date: $todoText")
+        todoAdapter.notifyDataSetChanged() // 通知 Adapter 更新 UI
     }
 }
