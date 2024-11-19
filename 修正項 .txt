@@ -1,3 +1,4 @@
+我有修改過程式碼，這是目前有修改過的部分，請記錄下來。
 package com.example.finalproject
 
 import android.os.Bundle
