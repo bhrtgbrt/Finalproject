@@ -56,6 +56,7 @@ public class CalendarAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.calendar_cell, parent, false);
             holder = new ViewHolder();
             holder.tvDate = convertView.findViewById(R.id.tvDate);
+            holder.tvLunarDate = convertView.findViewById(R.id.tvLunarDate);
             holder.tvTask = convertView.findViewById(R.id.tvTask);
             convertView.setTag(holder);
         } else {
@@ -73,6 +74,11 @@ public class CalendarAdapter extends BaseAdapter {
             // 設置日期
             holder.tvDate.setText(String.valueOf(dayOfMonth));
             holder.tvDate.setTextColor(context.getResources().getColor(android.R.color.black));
+
+            // 設置農曆日期
+            String lunarDate = getLunarDayString(currentDate);
+            holder.tvLunarDate.setText(lunarDate);
+            holder.tvLunarDate.setVisibility(View.VISIBLE);
 
             // 顯示待辦事項
             String key = getTaskKey(
@@ -95,10 +101,22 @@ public class CalendarAdapter extends BaseAdapter {
         } else {
             // 非當前月份的日期顯示為空
             holder.tvDate.setText("");
+            holder.tvLunarDate.setText("");
             holder.tvTask.setText("");
         }
 
         return convertView;
+    }
+
+    private String getLunarDayString(Calendar date) {
+        return LunarCalendarUtils.getLunarDate(date).split(" ")[1];
+    }
+
+    // 更新 ViewHolder
+    private static class ViewHolder {
+        TextView tvDate;
+        TextView tvLunarDate;
+        TextView tvTask;
     }
 
     private Calendar calculateDate(int position) {
@@ -131,8 +149,5 @@ public class CalendarAdapter extends BaseAdapter {
         return year + "-" + month + "-" + day;
     }
 
-    private static class ViewHolder {
-        TextView tvDate;
-        TextView tvTask;
-    }
+
 }

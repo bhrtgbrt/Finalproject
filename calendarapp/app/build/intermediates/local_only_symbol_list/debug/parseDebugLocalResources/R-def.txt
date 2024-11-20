@@ -12,9 +12,11 @@ id fabAdd
 id fabBack
 id fabSave
 id gridCalendar
+id headerLayout
 id lvTasks
 id tpTime
 id tvDate
+id tvLunarDate
 id tvTask
 id tvTaskItem
 id tvTaskTime

@@ -3327,6 +3327,7 @@ id gridCalendar
 id group_divider
 id grouping
 id groups
+id headerLayout
 id header_title
 id hide_ime_id
 id hideable
@@ -3600,6 +3601,7 @@ id transition_scene_layoutid_cache
 id transition_transform
 id triangle
 id tvDate
+id tvLunarDate
 id tvTask
 id tvTaskItem
 id tvTaskTime

@@ -3326,6 +3326,7 @@ int id gridCalendar 0x7f0800d5
 int id group_divider 0x7f0800d6
 int id grouping 0x7f0800d7
 int id groups 0x7f0800d8
+int id headerLayout 0x7f080208
 int id header_title 0x7f0800d9
 int id hide_ime_id 0x7f0800da
 int id hideable 0x7f0800db
@@ -3599,6 +3600,7 @@ int id transition_scene_layoutid_cache 0x7f0801e4
 int id transition_transform 0x7f0801e5
 int id triangle 0x7f0801e6
 int id tvDate 0x7f0801e7
+int id tvLunarDate 0x7f080209
 int id tvTask 0x7f0801e8
 int id tvTaskItem 0x7f080206
 int id tvTaskTime 0x7f080207

@@ -15,6 +15,7 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
     private TextView tvYearMonth;
+    private TextView tvLunarDate;
     private GridView gridCalendar;
     private Calendar calendar;
     private CalendarAdapter adapter;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeViews() {
         tvYearMonth = findViewById(R.id.tvYearMonth);
+        tvLunarDate = findViewById(R.id.tvLunarDate);
         gridCalendar = findViewById(R.id.gridCalendar);
     }
 
@@ -91,11 +93,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateCalendarView() {
-        // 更新年月顯示
+        // 更新公曆年月顯示
         String yearMonth = String.format("%d年 %d月",
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH) + 1);
         tvYearMonth.setText(yearMonth);
+
+        // 更新農曆日期顯示
+        String lunarDate = LunarCalendarUtils.getLunarDate(calendar);
+        String zodiac = LunarCalendarUtils.getZodiac(calendar.get(Calendar.YEAR));
+        tvLunarDate.setText(lunarDate + " (" + zodiac + "年)");
 
         // 更新日曆網格
         adapter = new CalendarAdapter(this, calendar);
