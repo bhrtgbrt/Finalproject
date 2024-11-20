@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -17,14 +18,28 @@
         android:maxLines="1"
         android:inputType="text"/>
 
-    <DatePicker
-        android:id="@+id/dpDate"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/etDate"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/etTask"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:hint="選擇日期"
+        android:padding="12dp"
+        android:background="@drawable/edit_text_background"
+        android:textSize="16sp"
+        android:focusable="false"
+        android:clickable="true"/>
+
+    <TimePicker
+        android:id="@+id/tpTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etDate"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:calendarViewShown="false"/>
+        android:timePickerMode="spinner"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabBack"
@@ -47,14 +62,5 @@
         android:src="@android:drawable/ic_input_add"
         app:fabSize="normal"
         app:backgroundTint="@android:color/holo_blue_dark"/>
-
-    <TimePicker
-        android:id="@+id/tpTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/dpDate"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:timePickerMode="spinner"/>
 
 </RelativeLayout>

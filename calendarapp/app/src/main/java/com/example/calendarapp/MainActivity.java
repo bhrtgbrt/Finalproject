@@ -1,4 +1,3 @@
-// MainActivity.java
 package com.example.calendarapp;
 
 import android.content.Intent;
@@ -6,6 +5,7 @@ import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,23 +32,13 @@ public class MainActivity extends AppCompatActivity {
         setupCalendar();
 
         // 設置添加按鈕點擊事件
-        FloatingActionButton fabAdd = findViewById(R.id.fabAdd);
-        fabAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddTaskActivity.class);
-                startActivityForResult(intent, 1);
-            }
-        });
+        setupAddButton();
+
+        // 添加日期格子點擊事件
+        setupDateGridClick();
 
         // 添加手勢偵測器
-        gestureDetector = new GestureDetectorCompat(this, new SwipeGestureListener());
-        gridCalendar.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return gestureDetector.onTouchEvent(event);
-            }
-        });
+        setupGestureDetector();
     }
 
     private void initializeViews() {
@@ -59,6 +49,45 @@ public class MainActivity extends AppCompatActivity {
     private void setupCalendar() {
         calendar = Calendar.getInstance();
         updateCalendarView();
+    }
+
+    private void setupAddButton() {
+        FloatingActionButton fabAdd = findViewById(R.id.fabAdd);
+        fabAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AddTaskActivity.class);
+                startActivityForResult(intent, 1);
+            }
+        });
+    }
+
+    private void setupDateGridClick() {
+        gridCalendar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Calendar clickedDate = adapter.getDateAtPosition(position);
+
+                // 只有當前月份的日期才可以點擊
+                if (clickedDate.get(Calendar.MONTH) == calendar.get(Calendar.MONTH)) {
+                    Intent intent = new Intent(MainActivity.this, TaskDetailActivity.class);
+                    intent.putExtra("year", clickedDate.get(Calendar.YEAR));
+                    intent.putExtra("month", clickedDate.get(Calendar.MONTH));
+                    intent.putExtra("day", clickedDate.get(Calendar.DAY_OF_MONTH));
+                    startActivity(intent);
+                }
+            }
+        });
+    }
+
+    private void setupGestureDetector() {
+        gestureDetector = new GestureDetectorCompat(this, new SwipeGestureListener());
+        gridCalendar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
+            }
+        });
     }
 
     private void updateCalendarView() {

@@ -27,6 +27,17 @@ public class CalendarAdapter extends BaseAdapter {
         return 42; // 6週 x 7天
     }
 
+    public Calendar getDateAtPosition(int position) {
+        Calendar date = (Calendar) calendar.clone();
+        date.set(Calendar.DAY_OF_MONTH, 1); // 設置為當月第一天
+
+        int firstDayOfWeek = date.get(Calendar.DAY_OF_WEEK) - 1; // 當月第一天是星期幾
+        int dayOffset = position - firstDayOfWeek; // 計算偏移量
+
+        date.add(Calendar.DAY_OF_MONTH, dayOffset);
+        return date;
+    }
+
     @Override
     public Object getItem(int position) {
         return null;
@@ -70,7 +81,17 @@ public class CalendarAdapter extends BaseAdapter {
                     dayOfMonth
             );
             String task = taskPreferences.getString(key, "");
-            holder.tvTask.setText(task);
+
+            // 只顯示第一個事項或用省略號表示有多個事項
+            if (!task.isEmpty()) {
+                String[] tasks = task.split("\n");
+                String displayTask = tasks.length > 1 ?
+                        tasks[0].split("\\|")[0] + "..." :
+                        tasks[0].split("\\|")[0];
+                holder.tvTask.setText(displayTask);
+            } else {
+                holder.tvTask.setText("");
+            }
         } else {
             // 非當前月份的日期顯示為空
             holder.tvDate.setText("");
@@ -93,7 +114,16 @@ public class CalendarAdapter extends BaseAdapter {
 
     public void addTask(int year, int month, int day, String task) {
         String key = getTaskKey(year, month, day);
-        taskPreferences.edit().putString(key, task).apply();
+
+        // 取得目前已儲存的事項
+        String existingTasks = taskPreferences.getString(key, "");
+
+        // 如果已經有事項，就用換行符號分隔
+        String updatedTasks = existingTasks.isEmpty() ?
+                task :
+                existingTasks + "\n" + task;
+
+        taskPreferences.edit().putString(key, updatedTasks).apply();
         notifyDataSetChanged();
     }
 

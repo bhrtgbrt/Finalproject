@@ -1,23 +1,11 @@
 [
     {
-        "merged": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-debug-4:\\mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-main-6:\\mipmap-hdpi\\ic_launcher.webp"
-    },
-    {
         "merged": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-debug-4:\\xml_backup_rules.xml.flat",
         "source": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-main-6:\\xml\\backup_rules.xml"
     },
     {
         "merged": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-debug-4:\\mipmap-mdpi_ic_launcher_round.webp.flat",
         "source": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-main-6:\\mipmap-mdpi\\ic_launcher_round.webp"
-    },
-    {
-        "merged": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-debug-4:\\drawable_calendar_cell_background.xml.flat",
-        "source": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-main-6:\\drawable\\calendar_cell_background.xml"
-    },
-    {
-        "merged": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-debug-4:\\drawable_ic_launcher_foreground.xml.flat",
-        "source": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-main-6:\\drawable\\ic_launcher_foreground.xml"
     },
     {
         "merged": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-debug-4:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
@@ -28,28 +16,48 @@
         "source": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-main-6:\\layout\\calendar_cell.xml"
     },
     {
-        "merged": "com.example.calendarapp-debug-4:/layout_activity_add_task.xml.flat",
-        "source": "com.example.calendarapp-main-6:/layout/activity_add_task.xml"
-    },
-    {
         "merged": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-debug-4:\\mipmap-anydpi_ic_launcher.xml.flat",
         "source": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-main-6:\\mipmap-anydpi\\ic_launcher.xml"
     },
     {
-        "merged": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-debug-4:\\layout_activity_add_task.xml.flat",
-        "source": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-main-6:\\layout\\activity_add_task.xml"
+        "merged": "com.example.calendarapp-debug-4:/layout_activity_task_detail.xml.flat",
+        "source": "com.example.calendarapp-main-6:/layout/activity_task_detail.xml"
+    },
+    {
+        "merged": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-debug-4:\\layout_activity_task_detail.xml.flat",
+        "source": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-main-6:\\layout\\activity_task_detail.xml"
     },
     {
         "merged": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-debug-4:\\mipmap-mdpi_ic_launcher.webp.flat",
         "source": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-main-6:\\mipmap-mdpi\\ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-debug-4:\\drawable_ic_launcher_background.xml.flat",
-        "source": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-main-6:\\drawable\\ic_launcher_background.xml"
-    },
-    {
         "merged": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-debug-4:\\mipmap-anydpi_ic_launcher_round.xml.flat",
         "source": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-main-6:\\mipmap-anydpi\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-debug-4:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-main-6:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-debug-4:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-main-6:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-debug-4:\\drawable_calendar_cell_background.xml.flat",
+        "source": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-main-6:\\drawable\\calendar_cell_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-debug-4:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-main-6:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-debug-4:\\layout_activity_add_task.xml.flat",
+        "source": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-main-6:\\layout\\activity_add_task.xml"
+    },
+    {
+        "merged": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-debug-4:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-main-6:\\drawable\\ic_launcher_background.xml"
     },
     {
         "merged": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-debug-4:\\mipmap-xhdpi_ic_launcher.webp.flat",
@@ -60,8 +68,8 @@
         "source": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-main-6:\\xml\\data_extraction_rules.xml"
     },
     {
-        "merged": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-debug-4:\\mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-main-6:\\mipmap-hdpi\\ic_launcher_round.webp"
+        "merged": "com.example.calendarapp-debug-4:/layout_task_item.xml.flat",
+        "source": "com.example.calendarapp-main-6:/layout/task_item.xml"
     },
     {
         "merged": "C:\\Users\\cheng\\.gradle\\daemon\\8.7\\com.example.calendarapp-debug-4:\\mipmap-xhdpi_ic_launcher_round.webp.flat",

@@ -116,6 +116,10 @@ activity#com.example.calendarapp.AddTaskActivity
 ADDED from C:\AS\Finalproject\calendarapp\app\src\main\AndroidManifest.xml:24:9-53
 	android:name
 		ADDED from C:\AS\Finalproject\calendarapp\app\src\main\AndroidManifest.xml:24:19-50
+activity#com.example.calendarapp.TaskDetailActivity
+ADDED from C:\AS\Finalproject\calendarapp\app\src\main\AndroidManifest.xml:25:9-56
+	android:name
+		ADDED from C:\AS\Finalproject\calendarapp\app\src\main\AndroidManifest.xml:25:19-53
 uses-sdk
 INJECTED from C:\AS\Finalproject\calendarapp\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\AS\Finalproject\calendarapp\app\src\main\AndroidManifest.xml

@@ -37,6 +37,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.calendarapp.AddTaskActivity" />
+        <activity android:name="com.example.calendarapp.TaskDetailActivity" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"
