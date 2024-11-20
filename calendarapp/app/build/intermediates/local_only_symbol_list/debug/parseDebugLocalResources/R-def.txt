@@ -1,0 +1,27 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color white
+drawable calendar_cell_background
+drawable edit_text_background
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+id dpDate
+id etTask
+id fabAdd
+id fabBack
+id fabSave
+id gridCalendar
+id tvDate
+id tvTask
+id tvYearMonth
+layout activity_add_task
+layout activity_main
+layout calendar_cell
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+style Base.Theme.Calendarapp
+style Theme.Calendarapp
+xml backup_rules
+xml data_extraction_rules
