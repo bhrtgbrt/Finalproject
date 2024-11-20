@@ -1,10 +1,10 @@
-com.example.calendarapp-pngs-0 C:\AS\calendarapp2\app\build\generated\res\pngs\debug
-com.example.calendarapp-resValues-1 C:\AS\calendarapp2\app\build\generated\res\resValues\debug
-com.example.calendarapp-packageDebugResources-2 C:\AS\calendarapp2\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
-com.example.calendarapp-packageDebugResources-3 C:\AS\calendarapp2\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
-com.example.calendarapp-debug-4 C:\AS\calendarapp2\app\build\intermediates\merged_res\debug\mergeDebugResources
-com.example.calendarapp-debug-5 C:\AS\calendarapp2\app\src\debug\res
-com.example.calendarapp-main-6 C:\AS\calendarapp2\app\src\main\res
+com.example.calendarapp-pngs-0 C:\AS\Finalproject\calendarapp\app\build\generated\res\pngs\debug
+com.example.calendarapp-resValues-1 C:\AS\Finalproject\calendarapp\app\build\generated\res\resValues\debug
+com.example.calendarapp-packageDebugResources-2 C:\AS\Finalproject\calendarapp\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.example.calendarapp-packageDebugResources-3 C:\AS\Finalproject\calendarapp\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.example.calendarapp-debug-4 C:\AS\Finalproject\calendarapp\app\build\intermediates\merged_res\debug\mergeDebugResources
+com.example.calendarapp-debug-5 C:\AS\Finalproject\calendarapp\app\src\debug\res
+com.example.calendarapp-main-6 C:\AS\Finalproject\calendarapp\app\src\main\res
 com.example.calendarapp-cardview-1.0.0-7 C:\Users\cheng\.gradle\caches\transforms-4\0167d70cf3e7587025970d39529d9dca\transformed\cardview-1.0.0\res
 com.example.calendarapp-activity-1.9.3-8 C:\Users\cheng\.gradle\caches\transforms-4\0c9bdf34895e98afc3e2e6c5530e54ea\transformed\activity-1.9.3\res
 com.example.calendarapp-lifecycle-viewmodel-2.6.2-9 C:\Users\cheng\.gradle\caches\transforms-4\1d516765d2ae96022c8ecffc0ba6f239\transformed\lifecycle-viewmodel-2.6.2\res
