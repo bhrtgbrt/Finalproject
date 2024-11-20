@@ -1,26 +1,24 @@
-// CalendarAdapter.java
 package com.example.calendarapp;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 public class CalendarAdapter extends BaseAdapter {
     private Context context;
     private Calendar calendar;
-    private Map<String, String> tasks;
+    private SharedPreferences taskPreferences;
     private LayoutInflater inflater;
 
     public CalendarAdapter(Context context, Calendar calendar) {
         this.context = context;
         this.calendar = (Calendar) calendar.clone();
-        this.tasks = new HashMap<>();
+        this.taskPreferences = context.getSharedPreferences("TaskPrefs", Context.MODE_PRIVATE);
         this.inflater = LayoutInflater.from(context);
     }
 
@@ -71,8 +69,8 @@ public class CalendarAdapter extends BaseAdapter {
                     currentDate.get(Calendar.MONTH),
                     dayOfMonth
             );
-            String task = tasks.get(key);
-            holder.tvTask.setText(task != null ? task : "");
+            String task = taskPreferences.getString(key, "");
+            holder.tvTask.setText(task);
         } else {
             // 非當前月份的日期顯示為空
             holder.tvDate.setText("");
@@ -95,7 +93,7 @@ public class CalendarAdapter extends BaseAdapter {
 
     public void addTask(int year, int month, int day, String task) {
         String key = getTaskKey(year, month, day);
-        tasks.put(key, task);
+        taskPreferences.edit().putString(key, task).apply();
         notifyDataSetChanged();
     }
 
