@@ -53,12 +53,11 @@ public class TaskDetailActivity extends AppCompatActivity {
     }
 
     private void setupTaskDeletion() {
-        lvTasks.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        lvTasks.setOnItemLongClickListener((parent, view, position, id) -> {
+            if (!tasksList.get(0).equals("無代辦事項")) {
                 showDeleteConfirmationDialog(position);
-                return true;
             }
+            return true;
         });
     }
 
@@ -77,58 +76,78 @@ public class TaskDetailActivity extends AppCompatActivity {
         String[] individualTasks = tasks.split("\n");
 
         // 移除指定位置的待辦事項
-        ArrayList<String> updatedTasks = new ArrayList<>();
+        StringBuilder updatedTasksBuilder = new StringBuilder();
         for (int i = 0; i < individualTasks.length; i++) {
             if (i != position) {
-                updatedTasks.add(individualTasks[i]);
+                if (updatedTasksBuilder.length() > 0) {
+                    updatedTasksBuilder.append("\n");
+                }
+                updatedTasksBuilder.append(individualTasks[i]);
             }
         }
 
-        // 重新儲存待辦事項
-        String updatedTasksString = updatedTasks.isEmpty() ? "" : String.join("\n", updatedTasks);
+        String updatedTasksString = updatedTasksBuilder.toString();
+
+        // 保存更新後的待辦事項
         taskPreferences.edit().putString(key, updatedTasksString).apply();
 
-        // 同步更新 MainActivity 的 CalendarAdapter
+        // 發送廣播通知主活動更新
         Intent intent = new Intent("com.example.calendarapp.TASK_UPDATED");
-        intent.putExtra("year", year);
-        intent.putExtra("month", month);
-        intent.putExtra("day", day);
         sendBroadcast(intent);
 
         // 更新畫面
-        displayTaskDetails();
+        if (updatedTasksString.isEmpty()) {
+            tasksList.clear();
+            tasksList.add("無代辦事項");
+        } else {
+            updateTasksList(updatedTasksString);
+        }
+        adapter.notifyDataSetChanged();
 
         Toast.makeText(this, "待辦事項已刪除", Toast.LENGTH_SHORT).show();
     }
 
     private void displayTaskDetails() {
-        // 重用原本的顯示邏輯
+        // 設置日期顯示
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年 M月 d日", Locale.CHINA);
         tvDate.setText(dateFormat.format(calendar.getTime()));
 
+        // 獲取並顯示待辦事項
         String key = year + "-" + month + "-" + day;
         String tasks = taskPreferences.getString(key, "");
 
+        tasksList.clear();
         if (!tasks.isEmpty()) {
-            String[] individualTasks = tasks.split("\n");
-            tasksList.clear();
-            for (String task : individualTasks) {
-                String[] taskParts = task.split("\\|");
-                if (taskParts.length > 1) {
-                    tasksList.add(taskParts[0] + " (時間: " + taskParts[1] + ")");
-                } else {
-                    tasksList.add(task);
-                }
-            }
+            updateTasksList(tasks);
+        } else {
+            tasksList.add("無代辦事項");
+        }
 
+        // 只在第一次創建時初始化adapter
+        if (adapter == null) {
             adapter = new ArrayAdapter<>(this, R.layout.task_item, R.id.tvTaskItem, tasksList);
             lvTasks.setAdapter(adapter);
         } else {
-            tasksList.add("無代辦事項");
-            adapter = new ArrayAdapter<>(this, R.layout.task_item, R.id.tvTaskItem, tasksList);
-            lvTasks.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    private void updateTasksList(String tasks) {
+        tasksList.clear();
+        String[] individualTasks = tasks.split("\n");
+        for (String task : individualTasks) {
+            String[] taskParts = task.split("\\|");
+            if (taskParts.length > 1) {
+                String displayText = taskParts[0] + " (時間: " + taskParts[1] + ")";
+                if (taskParts.length > 2) {
+                    displayText += " (" + taskParts[2] + ")";
+                }
+                tasksList.add(displayText);
+            } else {
+                tasksList.add(task);
+            }
         }
     }
 }

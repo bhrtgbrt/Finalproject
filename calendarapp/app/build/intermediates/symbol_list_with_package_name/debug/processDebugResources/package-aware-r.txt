@@ -78,6 +78,7 @@ animator mtrl_fab_show_motion_spec
 animator mtrl_fab_transformation_sheet_collapse_spec
 animator mtrl_fab_transformation_sheet_expand_spec
 array recurrence_options
+array reminder_options
 attr SharedValue
 attr SharedValueId
 attr actionBarDivider
@@ -3034,6 +3035,7 @@ drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
+drawable ic_notification
 drawable ic_search_black_24
 drawable indeterminate_static
 drawable m3_avd_hide_password
@@ -3528,6 +3530,7 @@ id snap
 id snapMargins
 id south
 id spRecurrence
+id spReminder
 id spacer
 id special_effects_controller_view_tag
 id spline

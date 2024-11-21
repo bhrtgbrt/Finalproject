@@ -70,4 +70,11 @@
         android:layout_below="@id/tpTime"
         android:layout_marginTop="16dp"/>
 
+    <Spinner
+        android:id="@+id/spReminder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spRecurrence"
+        android:layout_marginTop="16dp"/>
+
 </RelativeLayout>

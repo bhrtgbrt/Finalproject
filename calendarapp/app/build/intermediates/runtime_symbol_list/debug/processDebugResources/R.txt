@@ -77,6 +77,7 @@ int animator mtrl_fab_show_motion_spec 0x7f02001f
 int animator mtrl_fab_transformation_sheet_collapse_spec 0x7f020020
 int animator mtrl_fab_transformation_sheet_expand_spec 0x7f020021
 int array recurrence_options 0x7f130000
+int array reminder_options 0x7f130001
 int attr SharedValue 0x7f030000
 int attr SharedValueId 0x7f030001
 int attr actionBarDivider 0x7f030002
@@ -3033,6 +3034,7 @@ int drawable ic_mtrl_checked_circle 0x7f070098
 int drawable ic_mtrl_chip_checked_black 0x7f070099
 int drawable ic_mtrl_chip_checked_circle 0x7f07009a
 int drawable ic_mtrl_chip_close_circle 0x7f07009b
+int drawable ic_notification 0x7f0700e9
 int drawable ic_search_black_24 0x7f07009c
 int drawable indeterminate_static 0x7f07009d
 int drawable m3_avd_hide_password 0x7f07009e
@@ -3527,6 +3529,7 @@ int id snap 0x7f08019d
 int id snapMargins 0x7f08019e
 int id south 0x7f08019f
 int id spRecurrence 0x7f080206
+int id spReminder 0x7f080207
 int id spacer 0x7f0801a0
 int id special_effects_controller_view_tag 0x7f0801a1
 int id spline 0x7f0801a2

@@ -6,4 +6,12 @@
         <item>每月</item>
         <item>每週</item>
     </string-array>
+    <string-array name="reminder_options">
+        <item>不提醒</item>
+        <item>提前15分鐘</item>
+        <item>提前1小時</item>
+        <item>提前3小時</item>
+        <item>提前1天</item>
+        <item>提前3天</item>
+    </string-array>
 </resources>
