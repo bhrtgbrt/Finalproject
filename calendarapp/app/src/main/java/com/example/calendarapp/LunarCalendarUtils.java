@@ -1,5 +1,8 @@
 package com.example.calendarapp;
 
+import com.lunar.Solar;
+import com.lunar.Lunar;
+
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,72 +21,96 @@ public class LunarCalendarUtils {
             "廿一", "廿二", "廿三", "廿四", "廿五", "廿六", "廿七", "廿八", "廿九", "三十"
     };
 
-    // 天干
-    private static final String[] HEAVENLY_STEMS = {
-            "甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"
+    // 屬相
+    private static final String[] ZODIACS = {
+            "猪", "鼠", "牛", "虎", "兔", "龍", "蛇", "馬", "羊", "猴", "雞", "狗"
     };
 
-    // 地支
-    private static final String[] EARTHLY_BRANCHES = {
-            "子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"
-    };
-
-    // 生肖
-    private static final String[] ZODIAC = {
-            "鼠", "牛", "虎", "兔", "龍", "蛇", "馬", "羊", "猴", "雞", "狗", "豬"
-    };
-
-    // 農曆資料（農曆月份的二進制編碼）
-    private static final Map<Integer, int[]> LUNAR_INFO = new HashMap<>();
-
+    // 節日對應表
+    private static final Map<String, String> LUNAR_FESTIVALS = new HashMap<>();
     static {
-        // 這裡需要填入農曆資料，這是一個簡化版本
-        // 實際上需要更詳細和準確的農曆資料
-        LUNAR_INFO.put(2024, new int[]{0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950});
+        LUNAR_FESTIVALS.put("除夕", "臘月三十");
+        LUNAR_FESTIVALS.put("春節", "正月初一");
+        LUNAR_FESTIVALS.put("元宵節", "正月十五");
+        LUNAR_FESTIVALS.put("清明節", "清明");
+        LUNAR_FESTIVALS.put("端午節", "五月初五");
+        LUNAR_FESTIVALS.put("中秋節", "八月十五");
     }
 
     /**
-     * 將公曆日期轉換為農曆日期
+     * 獲取農曆日期
      * @param calendar 公曆日期
      * @return 農曆日期字串
      */
     public static String getLunarDate(Calendar calendar) {
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH) + 1;
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        Solar solar = new Solar(
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH) + 1,
+                calendar.get(Calendar.DAY_OF_MONTH)
+        );
+        Lunar lunar = solar.toLunar();
 
-        // 這裡是一個簡化的轉換，實際需要更複雜的算法
-        return getLunarMonthName(month) + getLunarDayName(day) +
-                " " + getYearGanZhi(year) + "年";
+        return getLunarMonthName(lunar.getLunarMonth()) + getLunarDayName(lunar.getLunarDay());
+    }
+
+    /**
+     * 檢查是否為農曆節日
+     * @param lunarDate 農曆日期
+     * @return 節日名稱，不是節日則返回空字串
+     */
+    public static String getFestival(String lunarDate) {
+        for (Map.Entry<String, String> entry : LUNAR_FESTIVALS.entrySet()) {
+            if (entry.getValue().equals(lunarDate)) {
+                return entry.getKey();
+            }
+        }
+        return "";
     }
 
     /**
      * 獲取農曆月份名稱
      */
-    private static String getLunarMonthName(int month) {
+    public static String getLunarMonthName(int month) {
+        // 處理閏月
+        if (month < 0) {
+            return "閏" + LUNAR_MONTH_NAMES[Math.abs(month) - 1];
+        }
         return month >= 1 && month <= 12 ? LUNAR_MONTH_NAMES[month - 1] : "";
     }
 
     /**
      * 獲取農曆日期名稱
      */
-    private static String getLunarDayName(int day) {
+    public static String getLunarDayName(int day) {
         return day >= 1 && day <= 30 ? LUNAR_DAY_NAMES[day - 1] : "";
     }
 
     /**
-     * 獲取年份的干支
+     * 獲取生肖
+     * @param year 公曆年份
+     * @return 生肖
      */
-    private static String getYearGanZhi(int year) {
-        int ganIndex = (year - 4) % 10;
-        int zhiIndex = (year - 4) % 12;
-        return HEAVENLY_STEMS[ganIndex] + EARTHLY_BRANCHES[zhiIndex];
+    public static String getZodiac(int year) {
+        return ZODIACS[(year - 4) % 12];
     }
 
     /**
-     * 獲取生肖
+     * 獲取完整的農曆日期信息
+     * @param calendar 公曆日期
+     * @return 完整的農曆日期信息
      */
-    public static String getZodiac(int year) {
-        return ZODIAC[(year - 4) % 12];
+    public static String getFullLunarDate(Calendar calendar) {
+        Solar solar = new Solar(
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH) + 1,
+                calendar.get(Calendar.DAY_OF_MONTH)
+        );
+        Lunar lunar = solar.toLunar();
+
+        return String.format("%d年 %s%s",
+                lunar.getLunarYear(),
+                getLunarMonthName(lunar.getLunarMonth()),
+                getLunarDayName(lunar.getLunarDay())
+        );
     }
 }

@@ -2,6 +2,7 @@ package com.example.calendarapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,10 +30,10 @@ public class CalendarAdapter extends BaseAdapter {
 
     public Calendar getDateAtPosition(int position) {
         Calendar date = (Calendar) calendar.clone();
-        date.set(Calendar.DAY_OF_MONTH, 1); // 設置為當月第一天
+        date.set(Calendar.DAY_OF_MONTH, 1);
 
-        int firstDayOfWeek = date.get(Calendar.DAY_OF_WEEK) - 1; // 當月第一天是星期幾
-        int dayOffset = position - firstDayOfWeek; // 計算偏移量
+        int firstDayOfWeek = date.get(Calendar.DAY_OF_WEEK) - 1;
+        int dayOffset = position - firstDayOfWeek;
 
         date.add(Calendar.DAY_OF_MONTH, dayOffset);
         return date;
@@ -63,24 +64,29 @@ public class CalendarAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        // 計算日期
         Calendar currentDate = calculateDate(position);
         int dayOfMonth = currentDate.get(Calendar.DAY_OF_MONTH);
 
-        // 判斷是否為當前月份的日期
         boolean isCurrentMonth = currentDate.get(Calendar.MONTH) == calendar.get(Calendar.MONTH);
 
         if (isCurrentMonth) {
-            // 設置日期
             holder.tvDate.setText(String.valueOf(dayOfMonth));
             holder.tvDate.setTextColor(context.getResources().getColor(android.R.color.black));
 
-            // 設置農曆日期
             String lunarDate = getLunarDayString(currentDate);
-            holder.tvLunarDate.setText(lunarDate);
-            holder.tvLunarDate.setVisibility(View.VISIBLE);
+            String lunarMonthDay = LunarCalendarUtils.getLunarMonthName(currentDate.get(Calendar.MONTH) + 1) +
+                    LunarCalendarUtils.getLunarDayName(dayOfMonth);
 
-            // 顯示待辦事項
+            // 檢查是否為節日
+            String festival = LunarCalendarUtils.getFestival(lunarMonthDay);
+            if (!festival.isEmpty()) {
+                holder.tvLunarDate.setTextColor(Color.RED);
+                holder.tvLunarDate.setText(festival);
+            } else {
+                holder.tvLunarDate.setTextColor(context.getResources().getColor(android.R.color.darker_gray));
+                holder.tvLunarDate.setText(lunarDate);
+            }
+
             String key = getTaskKey(
                     currentDate.get(Calendar.YEAR),
                     currentDate.get(Calendar.MONTH),
@@ -88,7 +94,6 @@ public class CalendarAdapter extends BaseAdapter {
             );
             String task = taskPreferences.getString(key, "");
 
-            // 只顯示第一個事項或用省略號表示有多個事項
             if (!task.isEmpty()) {
                 String[] tasks = task.split("\n");
                 String displayTask = tasks.length > 1 ?
@@ -99,7 +104,6 @@ public class CalendarAdapter extends BaseAdapter {
                 holder.tvTask.setText("");
             }
         } else {
-            // 非當前月份的日期顯示為空
             holder.tvDate.setText("");
             holder.tvLunarDate.setText("");
             holder.tvTask.setText("");
@@ -109,10 +113,10 @@ public class CalendarAdapter extends BaseAdapter {
     }
 
     private String getLunarDayString(Calendar date) {
-        return LunarCalendarUtils.getLunarDate(date).split(" ")[1];
+        String lunarDate = LunarCalendarUtils.getLunarDate(date);
+        return lunarDate;
     }
 
-    // 更新 ViewHolder
     private static class ViewHolder {
         TextView tvDate;
         TextView tvLunarDate;
@@ -121,10 +125,10 @@ public class CalendarAdapter extends BaseAdapter {
 
     private Calendar calculateDate(int position) {
         Calendar date = (Calendar) calendar.clone();
-        date.set(Calendar.DAY_OF_MONTH, 1); // 設置為當月第一天
+        date.set(Calendar.DAY_OF_MONTH, 1);
 
-        int firstDayOfWeek = date.get(Calendar.DAY_OF_WEEK) - 1; // 當月第一天是星期幾
-        int dayOffset = position - firstDayOfWeek; // 計算偏移量
+        int firstDayOfWeek = date.get(Calendar.DAY_OF_WEEK) - 1;
+        int dayOffset = position - firstDayOfWeek;
 
         date.add(Calendar.DAY_OF_MONTH, dayOffset);
         return date;
@@ -132,11 +136,8 @@ public class CalendarAdapter extends BaseAdapter {
 
     public void addTask(int year, int month, int day, String task) {
         String key = getTaskKey(year, month, day);
-
-        // 取得目前已儲存的事項
         String existingTasks = taskPreferences.getString(key, "");
 
-        // 如果已經有事項，就用換行符號分隔
         String updatedTasks = existingTasks.isEmpty() ?
                 task :
                 existingTasks + "\n" + task;
@@ -148,6 +149,4 @@ public class CalendarAdapter extends BaseAdapter {
     private String getTaskKey(int year, int month, int day) {
         return year + "-" + month + "-" + day;
     }
-
-
 }

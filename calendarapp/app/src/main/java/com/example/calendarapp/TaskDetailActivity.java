@@ -57,7 +57,12 @@ public class TaskDetailActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年 M月 d日", Locale.CHINA);
-        tvDate.setText(dateFormat.format(calendar.getTime()));
+        SimpleDateFormat lunarFormat = new SimpleDateFormat("農曆", Locale.CHINA);
+
+        // 設置農曆日期
+        String lunarDate = LunarCalendarUtils.getLunarDate(calendar);
+
+        tvDate.setText(dateFormat.format(calendar.getTime()) + " " + lunarDate);
 
         // 獲取並顯示任務
         String key = year + "-" + month + "-" + day;

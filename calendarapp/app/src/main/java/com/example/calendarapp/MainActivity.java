@@ -26,19 +26,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // 初始化元件
         initializeViews();
-
-        // 設置日曆
         setupCalendar();
-
-        // 設置添加按鈕點擊事件
         setupAddButton();
-
-        // 添加日期格子點擊事件
         setupDateGridClick();
-
-        // 添加手勢偵測器
         setupGestureDetector();
     }
 
@@ -70,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Calendar clickedDate = adapter.getDateAtPosition(position);
 
-                // 只有當前月份的日期才可以點擊
                 if (clickedDate.get(Calendar.MONTH) == calendar.get(Calendar.MONTH)) {
                     Intent intent = new Intent(MainActivity.this, TaskDetailActivity.class);
                     intent.putExtra("year", clickedDate.get(Calendar.YEAR));
@@ -93,18 +83,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateCalendarView() {
-        // 更新公曆年月顯示
         String yearMonth = String.format("%d年 %d月",
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH) + 1);
         tvYearMonth.setText(yearMonth);
 
-        // 更新農曆日期顯示
         String lunarDate = LunarCalendarUtils.getLunarDate(calendar);
-        String zodiac = LunarCalendarUtils.getZodiac(calendar.get(Calendar.YEAR));
-        tvLunarDate.setText(lunarDate + " (" + zodiac + "年)");
+        tvLunarDate.setText(lunarDate);
 
-        // 更新日曆網格
         adapter = new CalendarAdapter(this, calendar);
         gridCalendar.setAdapter(adapter);
     }
@@ -113,13 +99,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-            // 獲取返回的待辦事項數據
             String task = data.getStringExtra("task");
             int year = data.getIntExtra("year", calendar.get(Calendar.YEAR));
             int month = data.getIntExtra("month", calendar.get(Calendar.MONTH));
             int day = data.getIntExtra("day", calendar.get(Calendar.DAY_OF_MONTH));
 
-            // 更新日曆顯示
             if (adapter != null) {
                 adapter.addTask(year, month, day, task);
                 adapter.notifyDataSetChanged();
@@ -130,13 +114,10 @@ public class MainActivity extends AppCompatActivity {
     private class SwipeGestureListener extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            // 判斷左右滑動
             if (Math.abs(velocityX) > Math.abs(velocityY)) {
                 if (velocityX > 0) {
-                    // 向右滑動，顯示上一個月
                     calendar.add(Calendar.MONTH, -1);
                 } else {
-                    // 向左滑動，顯示下一個月
                     calendar.add(Calendar.MONTH, 1);
                 }
                 updateCalendarView();
