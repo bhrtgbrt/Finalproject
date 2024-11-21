@@ -77,6 +77,7 @@ animator mtrl_fab_hide_motion_spec
 animator mtrl_fab_show_motion_spec
 animator mtrl_fab_transformation_sheet_collapse_spec
 animator mtrl_fab_transformation_sheet_expand_spec
+array recurrence_options
 attr SharedValue
 attr SharedValueId
 attr actionBarDivider
@@ -3526,6 +3527,7 @@ id snackbar_text
 id snap
 id snapMargins
 id south
+id spRecurrence
 id spacer
 id special_effects_controller_view_tag
 id spline

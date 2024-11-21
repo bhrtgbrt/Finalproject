@@ -1,6 +1,9 @@
 package com.example.calendarapp;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -19,7 +22,15 @@ public class MainActivity extends AppCompatActivity {
     private Calendar calendar;
     private CalendarAdapter adapter;
     private GestureDetectorCompat gestureDetector;
-
+    private BroadcastReceiver taskUpdateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if ("com.example.calendarapp.TASK_UPDATED".equals(intent.getAction())) {
+                // 強制更新 adapter
+                adapter.notifyDataSetChanged();
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
 
         // 添加手勢偵測器
         setupGestureDetector();
+
+        // 註冊廣播接收器
+        IntentFilter filter = new IntentFilter("com.example.calendarapp.TASK_UPDATED");
+        registerReceiver(taskUpdateReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
     }
 
     private void initializeViews() {
@@ -137,5 +152,11 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         }
+    }
+    @Override
+    protected void onDestroy() {
+        // 取消註冊廣播接收器
+        unregisterReceiver(taskUpdateReceiver);
+        super.onDestroy();
     }
 }

@@ -1,5 +1,6 @@
 R_DEF: Internal format may change without notice
 local
+array recurrence_options
 color black
 color white
 drawable calendar_cell_background
@@ -13,6 +14,7 @@ id fabBack
 id fabSave
 id gridCalendar
 id lvTasks
+id spRecurrence
 id tpTime
 id tvDate
 id tvTask

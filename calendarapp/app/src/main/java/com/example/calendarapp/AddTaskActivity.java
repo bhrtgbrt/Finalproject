@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,16 +23,14 @@ public class AddTaskActivity extends AppCompatActivity {
     private Calendar selectedDate;
     private SharedPreferences taskPreferences;
     private TimePicker tpTime;
+    private Spinner spRecurrence;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        // 初始化元件
         initializeViews();
-
-        // 設置按鈕點擊事件
         setupButtons();
     }
 
@@ -38,11 +38,28 @@ public class AddTaskActivity extends AppCompatActivity {
         etTask = findViewById(R.id.etTask);
         etDate = findViewById(R.id.etDate);
         tpTime = findViewById(R.id.tpTime);
+        spRecurrence = findViewById(R.id.spRecurrence);
         selectedDate = Calendar.getInstance();
         taskPreferences = getSharedPreferences("TaskPrefs", MODE_PRIVATE);
 
-        // 設置日期點擊事件
         etDate.setOnClickListener(v -> showDatePicker());
+
+        // 設定重複選項
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.recurrence_options,
+                android.R.layout.simple_spinner_item
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spRecurrence.setAdapter(adapter);
+    }
+
+    private void setupButtons() {
+        FloatingActionButton fabBack = findViewById(R.id.fabBack);
+        fabBack.setOnClickListener(v -> finish());
+
+        FloatingActionButton fabSave = findViewById(R.id.fabSave);
+        fabSave.setOnClickListener(v -> saveTask());
     }
 
     private void saveTask() {
@@ -59,41 +76,110 @@ public class AddTaskActivity extends AppCompatActivity {
             return;
         }
 
-        // 獲取時間
         int hour = tpTime.getCurrentHour();
         int minute = tpTime.getCurrentMinute();
         String timeString = String.format("%02d:%02d", hour, minute);
 
-        // 將時間加入任務
-        String fullTask = task + "|" + timeString;
+        String recurrenceOption = spRecurrence.getSelectedItem().toString();
 
-        // 用 key 來儲存事項
+        switch (recurrenceOption) {
+            case "不重複":
+                saveSingleTask(task, timeString);
+                break;
+            case "每年":
+                saveRecurringYearlyTask(task, timeString);
+                break;
+            case "每月":
+                saveRecurringMonthlyTask(task, timeString);
+                break;
+            case "每週":
+                saveRecurringWeeklyTask(task, timeString);
+                break;
+        }
+    }
+
+    private void saveSingleTask(String task, String timeString) {
+        String fullTask = task + "|" + timeString;
         String key = getTaskKey(
                 selectedDate.get(Calendar.YEAR),
                 selectedDate.get(Calendar.MONTH),
                 selectedDate.get(Calendar.DAY_OF_MONTH)
         );
 
-        // 取得目前已儲存的事項
+        updateTaskPreferences(key, fullTask);
+        setResultAndFinish(fullTask);
+    }
+
+    private void saveRecurringYearlyTask(String task, String timeString) {
+        Calendar startDate = (Calendar) selectedDate.clone();
+        for (int year = startDate.get(Calendar.YEAR); year < startDate.get(Calendar.YEAR) + 10; year++) {
+            Calendar recurringDate = (Calendar) startDate.clone();
+            recurringDate.set(Calendar.YEAR, year);
+
+            String fullTask = task + "|" + timeString + "|yearly";
+            String key = getTaskKey(
+                    recurringDate.get(Calendar.YEAR),
+                    recurringDate.get(Calendar.MONTH),
+                    recurringDate.get(Calendar.DAY_OF_MONTH)
+            );
+
+            updateTaskPreferences(key, fullTask);
+        }
+        setResultAndFinish(task);
+    }
+
+    private void saveRecurringMonthlyTask(String task, String timeString) {
+        Calendar startDate = (Calendar) selectedDate.clone();
+        for (int month = 0; month < 120; month++) {
+            Calendar recurringDate = (Calendar) startDate.clone();
+            recurringDate.add(Calendar.MONTH, month);
+
+            String fullTask = task + "|" + timeString + "|monthly";
+            String key = getTaskKey(
+                    recurringDate.get(Calendar.YEAR),
+                    recurringDate.get(Calendar.MONTH),
+                    recurringDate.get(Calendar.DAY_OF_MONTH)
+            );
+
+            updateTaskPreferences(key, fullTask);
+        }
+        setResultAndFinish(task);
+    }
+
+    private void saveRecurringWeeklyTask(String task, String timeString) {
+        Calendar startDate = (Calendar) selectedDate.clone();
+        for (int week = 0; week < 52 * 2; week++) {
+            Calendar recurringDate = (Calendar) startDate.clone();
+            recurringDate.add(Calendar.WEEK_OF_YEAR, week);
+
+            String fullTask = task + "|" + timeString + "|weekly";
+            String key = getTaskKey(
+                    recurringDate.get(Calendar.YEAR),
+                    recurringDate.get(Calendar.MONTH),
+                    recurringDate.get(Calendar.DAY_OF_MONTH)
+            );
+
+            updateTaskPreferences(key, fullTask);
+        }
+        setResultAndFinish(task);
+    }
+
+    private void updateTaskPreferences(String key, String task) {
         String existingTasks = taskPreferences.getString(key, "");
-
-        // 如果已經有事項，就用換行符號分隔
         String updatedTasks = existingTasks.isEmpty() ?
-                fullTask :
-                existingTasks + "\n" + fullTask;
+                task :
+                existingTasks + "\n" + task;
 
-        taskPreferences.edit()
-                .putString(key, updatedTasks)
-                .apply();
+        taskPreferences.edit().putString(key, updatedTasks).apply();
+    }
 
-        // 創建返回數據
+    private void setResultAndFinish(String task) {
         Intent resultIntent = new Intent();
-        resultIntent.putExtra("task", fullTask);
+        resultIntent.putExtra("task", task);
         resultIntent.putExtra("year", selectedDate.get(Calendar.YEAR));
         resultIntent.putExtra("month", selectedDate.get(Calendar.MONTH));
         resultIntent.putExtra("day", selectedDate.get(Calendar.DAY_OF_MONTH));
 
-        // 設置結果並返回
         setResult(RESULT_OK, resultIntent);
         finish();
     }
@@ -105,10 +191,8 @@ public class AddTaskActivity extends AppCompatActivity {
                 .build();
 
         datePicker.addOnPositiveButtonClickListener(selection -> {
-            // 轉換選擇的日期
             selectedDate.setTimeInMillis(selection);
 
-            // 格式化日期顯示
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
             String formattedDate = sdf.format(selectedDate.getTime());
@@ -117,16 +201,6 @@ public class AddTaskActivity extends AppCompatActivity {
         });
 
         datePicker.show(getSupportFragmentManager(), "DATE_PICKER");
-    }
-
-    private void setupButtons() {
-        // 返回按鈕
-        FloatingActionButton fabBack = findViewById(R.id.fabBack);
-        fabBack.setOnClickListener(v -> finish());
-
-        // 保存按鈕
-        FloatingActionButton fabSave = findViewById(R.id.fabSave);
-        fabSave.setOnClickListener(v -> saveTask());
     }
 
     private String getTaskKey(int year, int month, int day) {

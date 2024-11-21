@@ -1,11 +1,15 @@
 package com.example.calendarapp;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.text.SimpleDateFormat;
@@ -19,19 +23,16 @@ public class TaskDetailActivity extends AppCompatActivity {
     private SharedPreferences taskPreferences;
     private ArrayList<String> tasksList;
     private ArrayAdapter<String> adapter;
+    private int year, month, day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_detail);
 
-        // 初始化視圖
         initializeViews();
-
-        // 設置返回按鈕
         setupBackButton();
-
-        // 顯示詳細信息
+        setupTaskDeletion();
         displayTaskDetails();
     }
 
@@ -40,6 +41,10 @@ public class TaskDetailActivity extends AppCompatActivity {
         lvTasks = findViewById(R.id.lvTasks);
         taskPreferences = getSharedPreferences("TaskPrefs", MODE_PRIVATE);
         tasksList = new ArrayList<>();
+
+        year = getIntent().getIntExtra("year", 0);
+        month = getIntent().getIntExtra("month", 0);
+        day = getIntent().getIntExtra("day", 0);
     }
 
     private void setupBackButton() {
@@ -47,19 +52,62 @@ public class TaskDetailActivity extends AppCompatActivity {
         fabBack.setOnClickListener(v -> finish());
     }
 
-    private void displayTaskDetails() {
-        // 獲取傳遞的日期信息
-        int year = getIntent().getIntExtra("year", 0);
-        int month = getIntent().getIntExtra("month", 0);
-        int day = getIntent().getIntExtra("day", 0);
+    private void setupTaskDeletion() {
+        lvTasks.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                showDeleteConfirmationDialog(position);
+                return true;
+            }
+        });
+    }
 
-        // 格式化日期顯示
+    private void showDeleteConfirmationDialog(int position) {
+        new AlertDialog.Builder(this)
+                .setTitle("刪除待辦事項")
+                .setMessage("確定要刪除此待辦事項嗎？")
+                .setPositiveButton("確定", (dialog, which) -> deleteTask(position))
+                .setNegativeButton("取消", null)
+                .show();
+    }
+
+    private void deleteTask(int position) {
+        String key = year + "-" + month + "-" + day;
+        String tasks = taskPreferences.getString(key, "");
+        String[] individualTasks = tasks.split("\n");
+
+        // 移除指定位置的待辦事項
+        ArrayList<String> updatedTasks = new ArrayList<>();
+        for (int i = 0; i < individualTasks.length; i++) {
+            if (i != position) {
+                updatedTasks.add(individualTasks[i]);
+            }
+        }
+
+        // 重新儲存待辦事項
+        String updatedTasksString = updatedTasks.isEmpty() ? "" : String.join("\n", updatedTasks);
+        taskPreferences.edit().putString(key, updatedTasksString).apply();
+
+        // 同步更新 MainActivity 的 CalendarAdapter
+        Intent intent = new Intent("com.example.calendarapp.TASK_UPDATED");
+        intent.putExtra("year", year);
+        intent.putExtra("month", month);
+        intent.putExtra("day", day);
+        sendBroadcast(intent);
+
+        // 更新畫面
+        displayTaskDetails();
+
+        Toast.makeText(this, "待辦事項已刪除", Toast.LENGTH_SHORT).show();
+    }
+
+    private void displayTaskDetails() {
+        // 重用原本的顯示邏輯
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年 M月 d日", Locale.CHINA);
         tvDate.setText(dateFormat.format(calendar.getTime()));
 
-        // 獲取並顯示任務
         String key = year + "-" + month + "-" + day;
         String tasks = taskPreferences.getString(key, "");
 
@@ -67,7 +115,6 @@ public class TaskDetailActivity extends AppCompatActivity {
             String[] individualTasks = tasks.split("\n");
             tasksList.clear();
             for (String task : individualTasks) {
-                // 如果有時間資訊，分割任務和時間
                 String[] taskParts = task.split("\\|");
                 if (taskParts.length > 1) {
                     tasksList.add(taskParts[0] + " (時間: " + taskParts[1] + ")");

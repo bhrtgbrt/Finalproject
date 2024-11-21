@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="recurrence_options">
+        <item>不重複</item>
+        <item>每年</item>
+        <item>每月</item>
+        <item>每週</item>
+    </string-array>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <string name="app_name">calendarapp</string>
