@@ -18,12 +18,13 @@
     <GridView
         android:id="@+id/gridCalendar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/tvYearMonth"
+        android:layout_above="@id/fabAdd"
         android:numColumns="7"
         android:horizontalSpacing="4dp"
         android:verticalSpacing="4dp"
-        android:layout_marginTop="8dp"/>
+        android:stretchMode="columnWidth"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAdd"

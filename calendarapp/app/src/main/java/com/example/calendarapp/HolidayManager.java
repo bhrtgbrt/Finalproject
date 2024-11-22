@@ -23,6 +23,7 @@ public class HolidayManager {
         fixedHolidays.put("12-25", "聖誕節");
 
         // 農曆節日
+        lunarHolidays.put("除夕", new LunarHoliday(12, 29));
         lunarHolidays.put("春節", new LunarHoliday(1, 1));
         lunarHolidays.put("元宵節", new LunarHoliday(1, 15));
         lunarHolidays.put("端午節", new LunarHoliday(5, 5));
