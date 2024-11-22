@@ -20,6 +20,8 @@ id spRecurrence
 id spReminder
 id tpTime
 id tvDate
+id tvHoliday
+id tvLunar
 id tvTask
 id tvTaskItem
 id tvTaskTime

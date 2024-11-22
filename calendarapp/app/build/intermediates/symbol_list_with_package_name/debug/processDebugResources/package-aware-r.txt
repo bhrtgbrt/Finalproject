@@ -3605,6 +3605,8 @@ id transition_scene_layoutid_cache
 id transition_transform
 id triangle
 id tvDate
+id tvHoliday
+id tvLunar
 id tvTask
 id tvTaskItem
 id tvTaskTime

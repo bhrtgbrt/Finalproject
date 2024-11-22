@@ -3604,6 +3604,8 @@ int id transition_scene_layoutid_cache 0x7f0801e6
 int id transition_transform 0x7f0801e7
 int id triangle 0x7f0801e8
 int id tvDate 0x7f0801e9
+int id tvHoliday 0x7f080208
+int id tvLunar 0x7f080209
 int id tvTask 0x7f0801ea
 int id tvTaskItem 0x7f0801eb
 int id tvTaskTime 0x7f0801ec

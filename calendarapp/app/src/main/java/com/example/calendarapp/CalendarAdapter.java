@@ -2,6 +2,7 @@ package com.example.calendarapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import java.util.Calendar;
 
 public class CalendarAdapter extends BaseAdapter {
+    private static final String TAG = "CalendarAdapter";
     private Context context;
     private Calendar calendar;
     private SharedPreferences taskPreferences;
@@ -25,17 +27,6 @@ public class CalendarAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         return 42; // 6週 x 7天
-    }
-
-    public Calendar getDateAtPosition(int position) {
-        Calendar date = (Calendar) calendar.clone();
-        date.set(Calendar.DAY_OF_MONTH, 1); // 設置為當月第一天
-
-        int firstDayOfWeek = date.get(Calendar.DAY_OF_WEEK) - 1; // 當月第一天是星期幾
-        int dayOffset = position - firstDayOfWeek; // 計算偏移量
-
-        date.add(Calendar.DAY_OF_MONTH, dayOffset);
-        return date;
     }
 
     @Override
@@ -56,7 +47,9 @@ public class CalendarAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.calendar_cell, parent, false);
             holder = new ViewHolder();
             holder.tvDate = convertView.findViewById(R.id.tvDate);
+            holder.tvLunar = convertView.findViewById(R.id.tvLunar);
             holder.tvTask = convertView.findViewById(R.id.tvTask);
+            holder.tvHoliday = convertView.findViewById(R.id.tvHoliday);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -70,9 +63,37 @@ public class CalendarAdapter extends BaseAdapter {
         boolean isCurrentMonth = currentDate.get(Calendar.MONTH) == calendar.get(Calendar.MONTH);
 
         if (isCurrentMonth) {
-            // 設置日期
+            // 設置陽曆日期
             holder.tvDate.setText(String.valueOf(dayOfMonth));
             holder.tvDate.setTextColor(context.getResources().getColor(android.R.color.black));
+
+            // 設置農曆日期
+            try {
+                Lunar lunar = new Lunar(currentDate);
+                String lunarText = getLunarDayText(lunar.getMonth(), lunar.getDay());
+                holder.tvLunar.setText(lunarText);
+                holder.tvLunar.setVisibility(View.VISIBLE);
+
+                // 加入日誌輸出以便偵錯
+                Log.d(TAG, String.format("日期: %d/%d/%d, 農曆: %s",
+                        currentDate.get(Calendar.YEAR),
+                        currentDate.get(Calendar.MONTH) + 1,
+                        currentDate.get(Calendar.DAY_OF_MONTH),
+                        lunarText));
+
+            } catch (Exception e) {
+                Log.e(TAG, "農曆轉換錯誤: " + e.getMessage());
+                holder.tvLunar.setVisibility(View.GONE);
+            }
+
+            // 顯示節日
+            String holiday = HolidayManager.getHoliday(currentDate);
+            if (holiday != null) {
+                holder.tvHoliday.setVisibility(View.VISIBLE);
+                holder.tvHoliday.setText(holiday);
+            } else {
+                holder.tvHoliday.setVisibility(View.GONE);
+            }
 
             // 顯示待辦事項
             String key = getTaskKey(
@@ -82,57 +103,76 @@ public class CalendarAdapter extends BaseAdapter {
             );
             String task = taskPreferences.getString(key, "");
 
-            // 只顯示第一個事項或用省略號表示有多個事項
             if (!task.isEmpty()) {
                 String[] tasks = task.split("\n");
                 String displayTask = tasks.length > 1 ?
                         tasks[0].split("\\|")[0] + "..." :
                         tasks[0].split("\\|")[0];
                 holder.tvTask.setText(displayTask);
+                holder.tvTask.setVisibility(View.VISIBLE);
             } else {
-                holder.tvTask.setText("");
+                holder.tvTask.setVisibility(View.GONE);
             }
         } else {
             // 非當前月份的日期顯示為空
             holder.tvDate.setText("");
-            holder.tvTask.setText("");
+            holder.tvLunar.setVisibility(View.GONE);
+            holder.tvTask.setVisibility(View.GONE);
+            holder.tvHoliday.setVisibility(View.GONE);
         }
 
         return convertView;
     }
 
+    private static class ViewHolder {
+        TextView tvDate;
+        TextView tvLunar;
+        TextView tvTask;
+        TextView tvHoliday;
+    }
+
+    private String getLunarDayText(int lunarMonth, int lunarDay) {
+        String[] chineseDayNames = {
+                "初一", "初二", "初三", "初四", "初五", "初六", "初七", "初八", "初九", "初十",
+                "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九", "二十",
+                "廿一", "廿二", "廿三", "廿四", "廿五", "廿六", "廿七", "廿八", "廿九", "三十"
+        };
+
+        if (lunarDay == 1) {
+            String[] chineseMonthNames = {
+                    "正月", "二月", "三月", "四月", "五月", "六月",
+                    "七月", "八月", "九月", "十月", "冬月", "臘月"
+            };
+            return chineseMonthNames[lunarMonth - 1];
+        } else {
+            return chineseDayNames[lunarDay - 1];
+        }
+    }
+
     private Calendar calculateDate(int position) {
         Calendar date = (Calendar) calendar.clone();
-        date.set(Calendar.DAY_OF_MONTH, 1); // 設置為當月第一天
+        date.set(Calendar.DAY_OF_MONTH, 1);
 
-        int firstDayOfWeek = date.get(Calendar.DAY_OF_WEEK) - 1; // 當月第一天是星期幾
-        int dayOffset = position - firstDayOfWeek; // 計算偏移量
+        int firstDayOfWeek = date.get(Calendar.DAY_OF_WEEK) - 1;
+        int dayOffset = position - firstDayOfWeek;
 
         date.add(Calendar.DAY_OF_MONTH, dayOffset);
         return date;
-    }
-
-    public void addTask(int year, int month, int day, String task) {
-        String key = getTaskKey(year, month, day);
-
-        // 取得目前已儲存的事項
-        String existingTasks = taskPreferences.getString(key, "");
-
-        // 如果已經有事項，就用換行符號分隔
-        String updatedTasks = existingTasks.isEmpty() ?
-                task :
-                existingTasks + "\n" + task;
-
-        taskPreferences.edit().putString(key, updatedTasks).apply();
-        notifyDataSetChanged();
     }
 
     private String getTaskKey(int year, int month, int day) {
         return year + "-" + month + "-" + day;
     }
 
-    private static class ViewHolder {
-        TextView tvDate;
-        TextView tvTask;
+    public Calendar getDateAtPosition(int position) {
+        return calculateDate(position);
+    }
+
+    public void addTask(int year, int month, int day, String task) {
+        String key = getTaskKey(year, month, day);
+        String existingTasks = taskPreferences.getString(key, "");
+        String updatedTasks = existingTasks.isEmpty() ? task : existingTasks + "\n" + task;
+        taskPreferences.edit().putString(key, updatedTasks).apply();
+        notifyDataSetChanged();
     }
 }
