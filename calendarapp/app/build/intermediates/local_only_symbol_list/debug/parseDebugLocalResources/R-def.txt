@@ -1,23 +1,36 @@
 R_DEF: Internal format may change without notice
 local
+array recurrence_options
+array reminder_options
 color black
 color white
 drawable calendar_cell_background
 drawable edit_text_background
 drawable ic_launcher_background
 drawable ic_launcher_foreground
-id dpDate
+drawable ic_notification
+id etDate
 id etTask
 id fabAdd
 id fabBack
 id fabSave
 id gridCalendar
+id lvTasks
+id spRecurrence
+id spReminder
+id tpTime
 id tvDate
+id tvHoliday
+id tvLunar
 id tvTask
+id tvTaskItem
+id tvTaskTime
 id tvYearMonth
 layout activity_add_task
 layout activity_main
+layout activity_task_detail
 layout calendar_cell
+layout task_item
 mipmap ic_launcher
 mipmap ic_launcher_round
 string app_name
