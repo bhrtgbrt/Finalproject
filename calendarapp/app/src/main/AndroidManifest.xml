@@ -29,5 +29,6 @@
         <receiver android:name=".NotificationReceiver"
             android:exported="false"/>
     </application>
+<!--    1-->
 
 </manifest>
