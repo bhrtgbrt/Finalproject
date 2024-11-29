@@ -95,7 +95,7 @@ public class TaskDetailActivity extends AppCompatActivity {
         Intent intent = new Intent("com.example.calendarapp.TASK_UPDATED");
         sendBroadcast(intent);
 
-        // 更新畫面1129
+        // 更新畫面1
         if (updatedTasksString.isEmpty()) {
             tasksList.clear();
             tasksList.add("無代辦事項");
