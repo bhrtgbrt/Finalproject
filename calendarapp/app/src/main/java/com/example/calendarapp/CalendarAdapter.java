@@ -55,6 +55,12 @@ public class CalendarAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
+        // 重置所有 TextView 的可見性
+        holder.tvDate.setVisibility(View.VISIBLE);
+        holder.tvLunar.setVisibility(View.GONE);
+        holder.tvTask.setVisibility(View.GONE);
+        holder.tvHoliday.setVisibility(View.GONE);
+
         // 計算日期
         Calendar currentDate = calculateDate(position);
         int dayOfMonth = currentDate.get(Calendar.DAY_OF_MONTH);
@@ -71,28 +77,33 @@ public class CalendarAdapter extends BaseAdapter {
             try {
                 Lunar lunar = new Lunar(currentDate);
                 String lunarText = getLunarDayText(lunar.getMonth(), lunar.getDay());
-                holder.tvLunar.setText(lunarText);
-                holder.tvLunar.setVisibility(View.VISIBLE);
 
-                // 加入日誌輸出以便偵錯
-                Log.d(TAG, String.format("日期: %d/%d/%d, 農曆: %s",
+                // 調試日誌
+                Log.d(TAG, String.format("位置: %d, 陽曆: %d/%d/%d, 農曆: %d月%d日, 顯示文字: %s",
+                        position,
                         currentDate.get(Calendar.YEAR),
                         currentDate.get(Calendar.MONTH) + 1,
                         currentDate.get(Calendar.DAY_OF_MONTH),
+                        lunar.getMonth(),
+                        lunar.getDay(),
                         lunarText));
 
+                // 確保農曆文字不為空且 TextView 存在
+                if (lunarText != null && !lunarText.isEmpty() && holder.tvLunar != null) {
+                    holder.tvLunar.setText(lunarText);
+                    holder.tvLunar.setVisibility(View.VISIBLE);
+                }
             } catch (Exception e) {
                 Log.e(TAG, "農曆轉換錯誤: " + e.getMessage());
+                e.printStackTrace();
                 holder.tvLunar.setVisibility(View.GONE);
             }
 
             // 顯示節日
             String holiday = HolidayManager.getHoliday(currentDate);
-            if (holiday != null) {
+            if (holiday != null && !holiday.isEmpty()) {
                 holder.tvHoliday.setVisibility(View.VISIBLE);
                 holder.tvHoliday.setText(holiday);
-            } else {
-                holder.tvHoliday.setVisibility(View.GONE);
             }
 
             // 顯示待辦事項
@@ -110,15 +121,11 @@ public class CalendarAdapter extends BaseAdapter {
                         tasks[0].split("\\|")[0];
                 holder.tvTask.setText(displayTask);
                 holder.tvTask.setVisibility(View.VISIBLE);
-            } else {
-                holder.tvTask.setVisibility(View.GONE);
             }
         } else {
             // 非當前月份的日期顯示為空
             holder.tvDate.setText("");
-            holder.tvLunar.setVisibility(View.GONE);
-            holder.tvTask.setVisibility(View.GONE);
-            holder.tvHoliday.setVisibility(View.GONE);
+            holder.tvDate.setVisibility(View.INVISIBLE);
         }
 
         return convertView;
@@ -145,7 +152,12 @@ public class CalendarAdapter extends BaseAdapter {
             };
             return chineseMonthNames[lunarMonth - 1];
         } else {
-            return chineseDayNames[lunarDay - 1];
+            if (lunarDay > 0 && lunarDay <= chineseDayNames.length) {
+                return chineseDayNames[lunarDay - 1];
+            } else {
+                Log.e(TAG, "無效的農曆日期: " + lunarMonth + "月" + lunarDay + "日");
+                return "";
+            }
         }
     }
 

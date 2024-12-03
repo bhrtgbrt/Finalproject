@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -115,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
         // 更新日曆網格
         adapter = new CalendarAdapter(this, calendar);
         gridCalendar.setAdapter(adapter);
+        Log.d("MainActivity", "日曆視圖已更新");
     }
 
     @Override
@@ -159,4 +161,6 @@ public class MainActivity extends AppCompatActivity {
         unregisterReceiver(taskUpdateReceiver);
         super.onDestroy();
     }
+
+
 }
