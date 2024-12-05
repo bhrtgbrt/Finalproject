@@ -78,7 +78,7 @@ public class AddTaskActivity extends AppCompatActivity {
         reminderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spReminder.setAdapter(reminderAdapter);
     }
-
+    // 初始化 UI 元件並設置事件
     private void initializeViews() {
         etTask = findViewById(R.id.etTask);
         etDate = findViewById(R.id.etDate);
@@ -315,7 +315,7 @@ public class AddTaskActivity extends AppCompatActivity {
         setResult(RESULT_OK, resultIntent);
         finish();
     }
-    //選擇日期時間
+    //執行保存任務的邏輯
     private void showDatePicker() {
         MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("選擇日期")
