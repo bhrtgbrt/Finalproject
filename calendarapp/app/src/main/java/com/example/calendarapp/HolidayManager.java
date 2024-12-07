@@ -52,7 +52,7 @@ public class HolidayManager {
                 }
             }
         } catch (Exception e) {
-            // 農曆轉換出錯時，只顯示陽曆節日
+            // 農曆轉換出錯時，只顯示國曆節日
             e.printStackTrace();
         }
         return null;
