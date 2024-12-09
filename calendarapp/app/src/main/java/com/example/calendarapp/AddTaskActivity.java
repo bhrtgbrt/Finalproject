@@ -134,7 +134,7 @@ public class AddTaskActivity extends AppCompatActivity {
     }
 
     private void checkAndRequestPermissions() {
-        // 檢查通知權限
+        // 檢查是否獲取通知權限
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
                     != PackageManager.PERMISSION_GRANTED) {
