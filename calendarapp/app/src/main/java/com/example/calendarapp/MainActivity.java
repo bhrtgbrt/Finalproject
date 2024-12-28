@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         // 初始化元件
         initializeViews();
 
@@ -55,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         // 註冊廣播接收器
         IntentFilter filter = new IntentFilter("com.example.calendarapp.TASK_UPDATED");
         registerReceiver(taskUpdateReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+
+
     }
 
     private void initializeViews() {

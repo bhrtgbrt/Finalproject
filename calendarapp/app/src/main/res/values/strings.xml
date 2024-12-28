@@ -14,4 +14,5 @@
         <item>提前1天</item>
         <item>提前3天</item>
     </string-array>
+    <string name="game_view_content_description" translatable="false">Game view</string>
 </resources>
