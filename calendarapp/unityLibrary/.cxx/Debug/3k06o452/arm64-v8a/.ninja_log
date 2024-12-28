@@ -1,0 +1,12 @@
+# ninja log v5
+40	198	7570934064239293	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	b31e03047dc26ee6
+200	288	7570934065209292	C:/AS/Finalproject/calendarapp/unityLibrary/build/intermediates/cxx/Debug/3k06o452/obj/arm64-v8a/libswappywrapper.so	ac98097d6d2d0fc6
+29	661	7570934068779295	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	56a5d7c1a1a7f145
+19	673	7570934068909296	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	c0abb7de917f1afd
+5	678	7570934068999297	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	3439a64ec83442bd
+35	682	7570934069059292	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	17553158d21c92b5
+24	704	7570934069319311	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	1391838d566e2b98
+9	739	7570934069699293	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	3957be303f777f2b
+13	770	7570934070009290	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	7878ba4c0d15988a
+1	818	7570934070458332	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	e1399e601bf3cd5b
+818	890	7570934071230957	C:/AS/Finalproject/calendarapp/unityLibrary/build/intermediates/cxx/Debug/3k06o452/obj/arm64-v8a/libgame.so	c087d5b58dcca209

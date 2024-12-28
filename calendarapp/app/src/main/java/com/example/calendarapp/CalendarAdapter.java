@@ -23,7 +23,12 @@ public class CalendarAdapter extends BaseAdapter {
         this.taskPreferences = context.getSharedPreferences("TaskPrefs", Context.MODE_PRIVATE);
         this.inflater = LayoutInflater.from(context);
     }
-
+    @Override
+    public void notifyDataSetChanged() {
+        // 重新獲取 SharedPreferences 實例以確保數據最新
+        this.taskPreferences = context.getSharedPreferences("TaskPrefs", Context.MODE_PRIVATE);
+        super.notifyDataSetChanged();
+    }
     @Override
     public int getCount() {
         return 42; // 6週 x 7天
@@ -78,24 +83,12 @@ public class CalendarAdapter extends BaseAdapter {
                 Lunar lunar = new Lunar(currentDate);
                 String lunarText = getLunarDayText(lunar.getMonth(), lunar.getDay());
 
-                // 調試日誌
-                Log.d(TAG, String.format("位置: %d, 陽曆: %d/%d/%d, 農曆: %d月%d日, 顯示文字: %s",
-                        position,
-                        currentDate.get(Calendar.YEAR),
-                        currentDate.get(Calendar.MONTH) + 1,
-                        currentDate.get(Calendar.DAY_OF_MONTH),
-                        lunar.getMonth(),
-                        lunar.getDay(),
-                        lunarText));
-
-                // 確保農曆文字不為空且 TextView 存在
-                if (lunarText != null && !lunarText.isEmpty() && holder.tvLunar != null) {
+                if (lunarText != null && !lunarText.isEmpty()) {
                     holder.tvLunar.setText(lunarText);
                     holder.tvLunar.setVisibility(View.VISIBLE);
                 }
             } catch (Exception e) {
                 Log.e(TAG, "農曆轉換錯誤: " + e.getMessage());
-                e.printStackTrace();
                 holder.tvLunar.setVisibility(View.GONE);
             }
 
@@ -106,21 +99,25 @@ public class CalendarAdapter extends BaseAdapter {
                 holder.tvHoliday.setText(holiday);
             }
 
-            // 顯示待辦事項
+            // 重新從 SharedPreferences 讀取並顯示待辦事項
             String key = getTaskKey(
                     currentDate.get(Calendar.YEAR),
                     currentDate.get(Calendar.MONTH),
                     dayOfMonth
             );
+
+            // 直接從 SharedPreferences 讀取最新數據
             String task = taskPreferences.getString(key, "");
 
             if (!task.isEmpty()) {
                 String[] tasks = task.split("\n");
-                String displayTask = tasks.length > 1 ?
-                        tasks[0].split("\\|")[0] + "..." :
-                        tasks[0].split("\\|")[0];
-                holder.tvTask.setText(displayTask);
-                holder.tvTask.setVisibility(View.VISIBLE);
+                if (tasks.length > 0 && !tasks[0].trim().isEmpty()) {
+                    String displayTask = tasks.length > 1 ?
+                            tasks[0].split("\\|")[0] + "..." :
+                            tasks[0].split("\\|")[0];
+                    holder.tvTask.setText(displayTask);
+                    holder.tvTask.setVisibility(View.VISIBLE);
+                }
             }
         } else {
             // 非當前月份的日期顯示為空
@@ -129,6 +126,12 @@ public class CalendarAdapter extends BaseAdapter {
         }
 
         return convertView;
+    }
+
+    public void refreshData() {
+        // 強制重新載入數據並更新視圖
+        this.taskPreferences = context.getSharedPreferences("TaskPrefs", Context.MODE_PRIVATE);
+        notifyDataSetChanged();
     }
 
     private static class ViewHolder {

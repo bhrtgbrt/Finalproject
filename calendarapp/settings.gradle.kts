@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "calendarapp"
 include(":app")
+include(":unityLibrary")
