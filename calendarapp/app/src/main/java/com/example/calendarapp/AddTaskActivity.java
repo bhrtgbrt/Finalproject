@@ -107,12 +107,44 @@ public class AddTaskActivity extends AppCompatActivity {
     }
 
     private void saveTask() {
-        if (validateInputs()) {
-            if (spReminder.getSelectedItemPosition() > 0) {
-                checkAndRequestPermissions();
-            } else {
-                proceedWithSaveTask();
-            }
+        if (!validateInputs()) {
+            return;
+        }
+
+        // 獲取任務文本並清理空白
+        String taskText = etTask.getText().toString().trim();
+
+        // 獲取時間
+        int hour = tpTime.getCurrentHour();
+        int minute = tpTime.getCurrentMinute();
+        String timeString = String.format("%02d:%02d", hour, minute);
+
+        // 創建完整的任務字符串
+        String fullTask = taskText + "|" + timeString;
+
+        // 檢查是否需要添加重複標記
+        String recurrenceOption = spRecurrence.getSelectedItem().toString();
+        if (!recurrenceOption.equals("不重複")) {
+            fullTask += "|" + recurrenceOption;
+        }
+
+        // 檢查是否已存在相同的任務
+        String key = getTaskKey(
+                selectedDate.get(Calendar.YEAR),
+                selectedDate.get(Calendar.MONTH),
+                selectedDate.get(Calendar.DAY_OF_MONTH)
+        );
+
+        String existingTasks = taskPreferences.getString(key, "");
+        if (existingTasks.contains(fullTask)) {
+            Toast.makeText(this, "該任務已經存在", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (spReminder.getSelectedItemPosition() > 0) {
+            checkAndRequestPermissions();
+        } else {
+            proceedWithSaveTask();
         }
     }
 
@@ -171,6 +203,7 @@ public class AddTaskActivity extends AppCompatActivity {
 
         String recurrenceOption = spRecurrence.getSelectedItem().toString();
 
+        // 根據重複選項保存任務
         switch (recurrenceOption) {
             case "不重複":
                 saveSingleTask(task, timeString);
@@ -189,6 +222,10 @@ public class AddTaskActivity extends AppCompatActivity {
         if (spReminder.getSelectedItemPosition() > 0) {
             scheduleNotification(task, timeString);
         }
+
+        // 發送廣播通知更新
+        Intent updateIntent = new Intent("com.example.calendarapp.TASK_UPDATED");
+        sendBroadcast(updateIntent);
     }
 
     private void scheduleNotification(String task, String timeString) {
@@ -297,12 +334,27 @@ public class AddTaskActivity extends AppCompatActivity {
     }
 
     private void updateTaskPreferences(String key, String task) {
+        // 首先檢查是否已經存在相同的任務
         String existingTasks = taskPreferences.getString(key, "");
-        String updatedTasks = existingTasks.isEmpty() ?
-                task :
-                existingTasks + "\n" + task;
 
-        taskPreferences.edit().putString(key, updatedTasks).apply();
+        // 如果已有任務，檢查新任務是否重複
+        if (!existingTasks.isEmpty()) {
+            String[] tasks = existingTasks.split("\n");
+            for (String existingTask : tasks) {
+                if (existingTask.equals(task)) {
+                    // 如果找到完全相同的任務，直接返回，不添加
+                    return;
+                }
+            }
+            // 如果沒有重複，則添加新任務
+            existingTasks = existingTasks + "\n" + task;
+        } else {
+            // 如果沒有現有任務，直接設置新任務
+            existingTasks = task;
+        }
+
+        // 保存更新後的任務
+        taskPreferences.edit().putString(key, existingTasks).apply();
     }
 
     private void setResultAndFinish(String task) {
@@ -311,6 +363,10 @@ public class AddTaskActivity extends AppCompatActivity {
         resultIntent.putExtra("year", selectedDate.get(Calendar.YEAR));
         resultIntent.putExtra("month", selectedDate.get(Calendar.MONTH));
         resultIntent.putExtra("day", selectedDate.get(Calendar.DAY_OF_MONTH));
+
+        // 發送廣播通知更新
+        Intent updateIntent = new Intent("com.example.calendarapp.TASK_UPDATED");
+        sendBroadcast(updateIntent);
 
         setResult(RESULT_OK, resultIntent);
         finish();
