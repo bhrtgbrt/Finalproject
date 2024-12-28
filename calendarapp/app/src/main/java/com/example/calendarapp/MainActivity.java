@@ -27,8 +27,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if ("com.example.calendarapp.TASK_UPDATED".equals(intent.getAction())) {
-                // 只更新日曆視圖，不觸發其他操作
-                adapter.notifyDataSetChanged();
+                // 使用新增的 refreshData 方法強制更新數據
+                if (adapter != null) {
+                    adapter.refreshData();
+                }
             }
         }
     };
