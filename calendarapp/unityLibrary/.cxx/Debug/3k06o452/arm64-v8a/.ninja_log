@@ -1,12 +1,12 @@
 # ninja log v5
-53	364	7570908318175343	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	b31e03047dc26ee6
-366	504	7570908319580670	C:/AS/Finalproject/calendarapp/unityLibrary/build/intermediates/cxx/Debug/3k06o452/obj/arm64-v8a/libswappywrapper.so	ac98097d6d2d0fc6
-22	1165	7570908325827077	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	c0abb7de917f1afd
-43	1205	7570908326167079	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	17553158d21c92b5
-31	1210	7570908325897083	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	56a5d7c1a1a7f145
-14	1211	7570908326067083	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	3439a64ec83442bd
-38	1287	7570908327017081	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	1391838d566e2b98
-10	1328	7570908327647105	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	3957be303f777f2b
-27	1425	7570908328737106	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	7878ba4c0d15988a
-1	1485	7570908329337081	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	e1399e601bf3cd5b
-1486	1586	7570908330447093	C:/AS/Finalproject/calendarapp/unityLibrary/build/intermediates/cxx/Debug/3k06o452/obj/arm64-v8a/libgame.so	c087d5b58dcca209
+56	501	7570922659158676	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	b31e03047dc26ee6
+532	828	7570922662598676	C:/AS/Finalproject/calendarapp/unityLibrary/build/intermediates/cxx/Debug/3k06o452/obj/arm64-v8a/libswappywrapper.so	ac98097d6d2d0fc6
+6	1004	7570922664858668	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	3439a64ec83442bd
+32	1037	7570922665198680	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	17553158d21c92b5
+25	1038	7570922665198680	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	1391838d566e2b98
+40	1042	7570922665258671	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	56a5d7c1a1a7f145
+10	1061	7570922665508667	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	3957be303f777f2b
+15	1096	7570922665858671	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	7878ba4c0d15988a
+19	1153	7570922665858671	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	c0abb7de917f1afd
+0	1164	7570922666515034	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	e1399e601bf3cd5b
+1164	1229	7570922667235037	C:/AS/Finalproject/calendarapp/unityLibrary/build/intermediates/cxx/Debug/3k06o452/obj/arm64-v8a/libgame.so	c087d5b58dcca209
