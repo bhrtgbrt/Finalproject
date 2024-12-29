@@ -1,4 +1,4 @@
-# Install script for directory: C:/AS/Finalproject/calendarapp/unityLibrary/src/main/cpp/GameActivity
+# Install script for directory: C:/Finalproject/calendarapp/unityLibrary/src/main/cpp/GameActivity
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

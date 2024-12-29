@@ -49,7 +49,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "C:/AS/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeSystem.cmake"
+			"path" : "C:/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeSystem.cmake"
 		},
 		{
 			"isExternal" : true,
@@ -324,7 +324,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "C:/AS/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCCompiler.cmake"
+			"path" : "C:/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -558,7 +558,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "C:/AS/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCXXCompiler.cmake"
+			"path" : "C:/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCXXCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -722,7 +722,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "C:/AS/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCCompiler.cmake"
+			"path" : "C:/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -816,32 +816,32 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "C:/AS/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCXXCompiler.cmake"
+			"path" : "C:/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/arm64-v8a/CMakeFiles/3.22.1-g37088a8-dirty/CMakeCXXCompiler.cmake"
 		},
 		{
 			"path" : "GameActivity/CMakeLists.txt"
 		},
 		{
 			"isExternal" : true,
-			"path" : "C:/AS/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/prefab/arm64-v8a/prefab/lib/aarch64-linux-android/cmake/game-activity/game-activityConfig.cmake"
+			"path" : "C:/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/prefab/arm64-v8a/prefab/lib/aarch64-linux-android/cmake/game-activity/game-activityConfig.cmake"
 		},
 		{
 			"path" : "FramePacing/CMakeLists.txt"
 		},
 		{
 			"isExternal" : true,
-			"path" : "C:/AS/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/prefab/arm64-v8a/prefab/lib/aarch64-linux-android/cmake/games-frame-pacing/games-frame-pacingConfigVersion.cmake"
+			"path" : "C:/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/prefab/arm64-v8a/prefab/lib/aarch64-linux-android/cmake/games-frame-pacing/games-frame-pacingConfigVersion.cmake"
 		},
 		{
 			"isExternal" : true,
-			"path" : "C:/AS/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/prefab/arm64-v8a/prefab/lib/aarch64-linux-android/cmake/games-frame-pacing/games-frame-pacingConfig.cmake"
+			"path" : "C:/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/prefab/arm64-v8a/prefab/lib/aarch64-linux-android/cmake/games-frame-pacing/games-frame-pacingConfig.cmake"
 		}
 	],
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "C:/AS/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/arm64-v8a",
-		"source" : "C:/AS/Finalproject/calendarapp/unityLibrary/src/main/cpp"
+		"build" : "C:/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/arm64-v8a",
+		"source" : "C:/Finalproject/calendarapp/unityLibrary/src/main/cpp"
 	},
 	"version" : 
 	{

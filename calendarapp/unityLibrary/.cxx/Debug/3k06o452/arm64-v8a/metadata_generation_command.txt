@@ -1,4 +1,4 @@
-                        -HC:\AS\Finalproject\calendarapp\unityLibrary\src\main\cpp
+                        -HC:\Finalproject\calendarapp\unityLibrary\src\main\cpp
 -DCMAKE_SYSTEM_NAME=Android
 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 -DCMAKE_SYSTEM_VERSION=31
@@ -9,11 +9,11 @@
 -DCMAKE_ANDROID_NDK=C:\Users\cheng\AppData\Local\Android\Sdk\ndk\23.1.7779620
 -DCMAKE_TOOLCHAIN_FILE=C:\Users\cheng\AppData\Local\Android\Sdk\ndk\23.1.7779620\build\cmake\android.toolchain.cmake
 -DCMAKE_MAKE_PROGRAM=C:\Users\cheng\AppData\Local\Android\Sdk\cmake\3.22.1\bin\ninja.exe
--DCMAKE_LIBRARY_OUTPUT_DIRECTORY=C:\AS\Finalproject\calendarapp\unityLibrary\build\intermediates\cxx\Debug\3k06o452\obj\arm64-v8a
--DCMAKE_RUNTIME_OUTPUT_DIRECTORY=C:\AS\Finalproject\calendarapp\unityLibrary\build\intermediates\cxx\Debug\3k06o452\obj\arm64-v8a
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=C:\Finalproject\calendarapp\unityLibrary\build\intermediates\cxx\Debug\3k06o452\obj\arm64-v8a
+-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=C:\Finalproject\calendarapp\unityLibrary\build\intermediates\cxx\Debug\3k06o452\obj\arm64-v8a
 -DCMAKE_BUILD_TYPE=Debug
--DCMAKE_FIND_ROOT_PATH=C:\AS\Finalproject\calendarapp\unityLibrary\.cxx\Debug\3k06o452\prefab\arm64-v8a\prefab
--BC:\AS\Finalproject\calendarapp\unityLibrary\.cxx\Debug\3k06o452\arm64-v8a
+-DCMAKE_FIND_ROOT_PATH=C:\Finalproject\calendarapp\unityLibrary\.cxx\Debug\3k06o452\prefab\arm64-v8a\prefab
+-BC:\Finalproject\calendarapp\unityLibrary\.cxx\Debug\3k06o452\arm64-v8a
 -GNinja
 -DANDROID_STL=c++_shared
                         Build command args: []
