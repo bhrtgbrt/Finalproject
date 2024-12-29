@@ -24,7 +24,7 @@ MemoryCaptures/
 .idea/
 *.iml
 .gradle/
-build/
+
 
 # System files
 .DS_Store
