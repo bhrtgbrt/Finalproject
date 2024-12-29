@@ -1,8 +1,0 @@
-{
-  "enabled": true,
-  "prefabPath": "C:\\Users\\cheng\\.gradle\\caches\\modules-2\\files-2.1\\com.google.prefab\\cli\\2.1.0\\aa32fec809c44fa531f01dcfb739b5b3304d3050\\cli-2.1.0-all.jar",
-  "packages": [
-    "C:\\Users\\cheng\\.gradle\\caches\\transforms-4\\6447806ad8b6da6ce4410bb15b022c21\\transformed\\games-activity-3.0.5\\prefab",
-    "C:\\Users\\cheng\\.gradle\\caches\\transforms-4\\782dd0a514e51730b1e66cc6e0b1f23d\\transformed\\games-frame-pacing-1.10.0\\prefab"
-  ]
-}
