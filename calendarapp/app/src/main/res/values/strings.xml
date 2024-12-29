@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">calendarapp</string>
+    <string-array name="recurrence_options">
+        <item>不重複</item>
+        <item>每年</item>
+        <item>每月</item>
+        <item>每週</item>
+    </string-array>
+    <string-array name="reminder_options">
+        <item>不提醒</item>
+        <item>提前15分鐘</item>
+        <item>提前1小時</item>
+        <item>提前3小時</item>
+        <item>提前1天</item>
+        <item>提前3天</item>
+    </string-array>
+    <string name="game_view_content_description" translatable="false">Game view</string>
+</resources>
