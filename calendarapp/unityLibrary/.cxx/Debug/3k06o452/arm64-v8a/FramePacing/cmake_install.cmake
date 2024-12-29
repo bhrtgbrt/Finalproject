@@ -1,4 +1,4 @@
-# Install script for directory: C:/AS/Finalproject/calendarapp/unityLibrary/src/main/cpp/FramePacing
+# Install script for directory: C:/Finalproject/calendarapp/unityLibrary/src/main/cpp/FramePacing
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

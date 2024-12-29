@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "C:/AS/Finalproject/calendarapp/unityLibrary/build/intermediates/cxx/Debug/3k06o452/obj/arm64-v8a/libswappywrapper.so"
+			"path" : "C:/Finalproject/calendarapp/unityLibrary/build/intermediates/cxx/Debug/3k06o452/obj/arm64-v8a/libswappywrapper.so"
 		}
 	],
 	"backtrace" : 1,
@@ -73,7 +73,7 @@
 			[
 				{
 					"backtrace" : 4,
-					"path" : "C:/AS/Finalproject/calendarapp/unityLibrary/src/main/cpp/FramePacing"
+					"path" : "C:/Finalproject/calendarapp/unityLibrary/src/main/cpp/FramePacing"
 				},
 				{
 					"backtrace" : 2,

@@ -127,7 +127,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/AS/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/arm64-v8a"
+			"value" : "c:/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/arm64-v8a"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -599,7 +599,7 @@
 				}
 			],
 			"type" : "UNINITIALIZED",
-			"value" : "C:\\AS\\Finalproject\\calendarapp\\unityLibrary\\.cxx\\Debug\\3k06o452\\prefab\\arm64-v8a\\prefab"
+			"value" : "C:\\Finalproject\\calendarapp\\unityLibrary\\.cxx\\Debug\\3k06o452\\prefab\\arm64-v8a\\prefab"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -659,7 +659,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/AS/Finalproject/calendarapp/unityLibrary/src/main/cpp"
+			"value" : "C:/Finalproject/calendarapp/unityLibrary/src/main/cpp"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -695,7 +695,7 @@
 				}
 			],
 			"type" : "UNINITIALIZED",
-			"value" : "C:\\AS\\Finalproject\\calendarapp\\unityLibrary\\build\\intermediates\\cxx\\Debug\\3k06o452\\obj\\arm64-v8a"
+			"value" : "C:\\Finalproject\\calendarapp\\unityLibrary\\build\\intermediates\\cxx\\Debug\\3k06o452\\obj\\arm64-v8a"
 		},
 		{
 			"name" : "CMAKE_LINKER",
@@ -967,7 +967,7 @@
 				}
 			],
 			"type" : "UNINITIALIZED",
-			"value" : "C:\\AS\\Finalproject\\calendarapp\\unityLibrary\\build\\intermediates\\cxx\\Debug\\3k06o452\\obj\\arm64-v8a"
+			"value" : "C:\\Finalproject\\calendarapp\\unityLibrary\\build\\intermediates\\cxx\\Debug\\3k06o452\\obj\\arm64-v8a"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS",
@@ -1239,7 +1239,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/AS/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/arm64-v8a"
+			"value" : "C:/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/arm64-v8a"
 		},
 		{
 			"name" : "Unity_IS_TOP_LEVEL",
@@ -1263,7 +1263,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/AS/Finalproject/calendarapp/unityLibrary/src/main/cpp"
+			"value" : "C:/Finalproject/calendarapp/unityLibrary/src/main/cpp"
 		},
 		{
 			"name" : "game-activity_DIR",
@@ -1275,7 +1275,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "C:/AS/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/prefab/arm64-v8a/prefab/lib/aarch64-linux-android/cmake/game-activity"
+			"value" : "C:/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/prefab/arm64-v8a/prefab/lib/aarch64-linux-android/cmake/game-activity"
 		},
 		{
 			"name" : "game_BINARY_DIR",
@@ -1287,7 +1287,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/AS/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/arm64-v8a/GameActivity"
+			"value" : "C:/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/arm64-v8a/GameActivity"
 		},
 		{
 			"name" : "game_IS_TOP_LEVEL",
@@ -1323,7 +1323,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/AS/Finalproject/calendarapp/unityLibrary/src/main/cpp/GameActivity"
+			"value" : "C:/Finalproject/calendarapp/unityLibrary/src/main/cpp/GameActivity"
 		},
 		{
 			"name" : "games-frame-pacing_DIR",
@@ -1335,7 +1335,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "C:/AS/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/prefab/arm64-v8a/prefab/lib/aarch64-linux-android/cmake/games-frame-pacing"
+			"value" : "C:/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/prefab/arm64-v8a/prefab/lib/aarch64-linux-android/cmake/games-frame-pacing"
 		},
 		{
 			"name" : "swappywrapper_BINARY_DIR",
@@ -1347,7 +1347,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/AS/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/arm64-v8a/FramePacing"
+			"value" : "C:/Finalproject/calendarapp/unityLibrary/.cxx/Debug/3k06o452/arm64-v8a/FramePacing"
 		},
 		{
 			"name" : "swappywrapper_IS_TOP_LEVEL",
@@ -1383,7 +1383,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/AS/Finalproject/calendarapp/unityLibrary/src/main/cpp/FramePacing"
+			"value" : "C:/Finalproject/calendarapp/unityLibrary/src/main/cpp/FramePacing"
 		}
 	],
 	"kind" : "cache",
