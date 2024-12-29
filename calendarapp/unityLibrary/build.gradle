@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply from: "C:\\AS\\fffff\\Finalproject\\calendarapp\\shared\\keepUnitySymbols.gradle"
+apply from: "..\\unityLibrary\\shared\\keepUnitySymbols.gradle"
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
